@@ -2,6 +2,10 @@
   "name": "yolo_app",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "13.12.0",
+    "node": "6.14.5"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
