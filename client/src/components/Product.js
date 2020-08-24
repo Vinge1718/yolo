@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
+import Default_image from '../images/product_image.jpeg'
 
 
 function Product (props) {
@@ -13,7 +13,7 @@ function Product (props) {
                 <div className="product" onClick = { () => props.whenProductClicked(props.id)} >
                     <div className="product-img">
                         <img 
-                        src= {props.photo} 
+                        src= {Default_image} 
                         className="img-fluid d-block mx-auto" 
                         alt = {props.photo}/>
                     </div>
@@ -32,7 +32,7 @@ function Product (props) {
 
 Product.propTypes = {
     name: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
     photo: PropTypes.string,
     id: PropTypes.string,
     whenProductClicked: PropTypes.func,

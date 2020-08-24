@@ -32,8 +32,8 @@ function ProductList (props) {
                         photo = {product.photo}
                         name = {product.name}
                         price = {product.price}
-                        id = {product.id}
-                        key= {product.id}/>
+                        id = {product._id}
+                        key= {product._id}/>
 
                     )}
                     </div>
