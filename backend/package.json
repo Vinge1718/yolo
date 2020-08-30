@@ -17,9 +17,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jonnygovish/yolo/issues"
+    "url": "https://github.com/Vinge1718/yolo/issues"
   },
-  "homepage": "https://github.com/jonnygovish/yolo#readme",
+  "homepage": "https://github.com/Vinge1718/yolo#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^5.2.0",

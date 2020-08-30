@@ -10,7 +10,7 @@ Make sure that you have the following installed:
 ## Run the folllowing command to install the dependencies 
  `npm install`
 
-## Run the folllowing to srat the app
+## Run the folllowing to start the app
  `npm start`
 
 ## Open a new terminal and run the same commands in the backend folder
