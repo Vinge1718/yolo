@@ -8,7 +8,7 @@ Author of this repository is <strong>Charles Muli</strong>. He is currently a st
 
 The application is an e-commerce website that doubles-up as a dashboard where you can load retail products on to the site.
 
-This project is meant to implement use of containerization using docker files and docker-compose YAML file to orchestrate the running of the various containers
+This project is meant to implement use of containerization using docker files and docker-compose YAML file to orchestrate the running of the various containers.
 
 ## Setup Instruction
 
