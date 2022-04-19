@@ -1,6 +1,8 @@
-FROM alpine:3.14
+FROM mongo-express:latest  
 
 WORKDIR /backend
+
+COPY . .
 
 RUN npm install
 
