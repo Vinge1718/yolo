@@ -27,7 +27,7 @@ RUN npm install -> This is a command to install npm dependancies.
 CMD [ "npm","start" ] -> This is a command to run the application.
 
 # Docker-compose Networking
-This majorly set up for multiple containers to be able to communicate to each other where necessary.
+This majorly set up for multiple containers to be able to communicate to each other where necessary. Necessary ports and environment are set in the docker-compose file.
 
 # Docker-compose Volume and Usage Defination
 This is meant to allocate storage of data in the containers. The advantage of it is that container can be deleted but the data may still remain and be used in future containers.
