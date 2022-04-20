@@ -3,7 +3,6 @@ version: '3'
 services:
   mongo-express:
     image: mongo-express
-    restart: always
     ports:
       - 3000:3000
     environment:
