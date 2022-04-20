@@ -1,10 +1,16 @@
 version: '3'
 
 services:
+  web:
+    image: clientimage1:1.0
+    ports:
+      - 3000:3000
+       
+
   mongo-express:
     image: mongo-express
     ports:
-      - 3000:3000
+      - 5000:5000
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: chaxito
       ME_CONFIG_MONGODB_ADMINPASSWORD: Charl*Chax3017
