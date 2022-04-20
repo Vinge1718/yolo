@@ -1,4 +1,4 @@
-FROM mongo-express:latest  
+FROM mongo-express:latest
 
 WORKDIR /backend
 

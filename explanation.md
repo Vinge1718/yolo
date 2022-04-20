@@ -1,9 +1,11 @@
 # Choice of Base Image
 1. Client Directory
-I chose Alpine Version 3:14 since its a light image and can run successfully a basic http web application.
+
+I chose node Version slim since its a light image necessary to run the npm commands and can run successfully a basic http web application.
 
 2. Backend Directory
-I chose Mongo-express latest version since the web application uses MongoDB for database.
+
+I chose Mongo-express latest version since the web application uses node js running npm and MongoDB for database.
 
 # Dockerfiles Directive
 ## Client Image
