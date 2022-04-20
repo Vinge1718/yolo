@@ -1,7 +1,7 @@
 # Choice of Base Image
 1. Client Directory
 
-I chose node Version slim since its a light image necessary to run the npm commands and can run successfully a basic http web application.
+I chose node:current-alpine3.14 since its a light image necessary to run the npm commands and can run successfully a basic http web application.
 
 2. Backend Directory
 
@@ -9,7 +9,7 @@ I chose Mongo-express latest version since the web application uses node js runn
 
 # Dockerfiles Directive
 ## Client Image
-FROM alpine:3.14 -> This shows the base image selected and the version.
+FROM node:current-alpine3.14 -> This shows the base image selected and the version.
 
 WORKDIR /client -> This shows the working directory when the commands will be run.
 
