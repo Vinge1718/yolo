@@ -1,6 +1,8 @@
 ---
 - name: yolo playbook
   hosts: all
+  remote_user: chaxito
+  become: yes
   tasks:
      - name: Install git
        apt:
