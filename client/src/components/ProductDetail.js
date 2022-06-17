@@ -4,7 +4,7 @@ import Default_image from '../images/product_image.jpeg'
 
 function ProductDetail (props) {
 
-    const { product } = props
+    const { product }=props
    
     return (
         <React.Fragment>
@@ -21,12 +21,12 @@ function ProductDetail (props) {
                                 
                             </div>
                             <div className="details col-md-6">
-                                <div className = "row">
+                                <div className="row">
                                     <div className="col-md-6">
                                         <h3 className="product-title">{product.name} </h3>
                                     </div>
                                     <div className="col-md-6">
-                                        <button className="add-to-cart btn btn-default float-right" onClick ={props.onEditProductClick} > Edit Product</button>
+                                        <button className="add-to-cart btn btn-default float-right" onClick={props.onEditProductClick} > Edit Product</button>
                                     </div>
                                 </div>
                                 <div className="rating">

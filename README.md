@@ -1,23 +1,32 @@
-# Requirements
-Make sure that you have the following installed:
-- [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) 
-- npm 
-- [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) and start the mongodb service with `sudo service mongod start`
+# Yolomy
+<!-- Introduction of Author -->
+Author of this repository is <strong>Charles Muli</strong>. He is currently a student at Moringa School and an employee of Safaricom PLC.
 
-## Navigate to the Client Folder 
- `cd client`
+<!--Project Description  -->
 
-## Run the folllowing command to install the dependencies 
- `npm install`
+## Project Description
 
-## Run the folllowing to start the app
- `npm start`
+The application is an e-commerce website that doubles-up as a dashboard where you can load retail products on to the site.
 
-## Open a new terminal and run the same commands in the backend folder
- `cd ../backend`
+This project is meant to implement use of containerization using docker files and docker-compose YAML file to orchestrate the running of the various containers.
 
- `npm install`
+## Setup Instruction
 
- `npm start`
+To successfully run this application you'll need to install node js, MongoBD and install npm dependancy from the backend.
 
- ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+
+## Technologies Used
+
+The program will basically use JavaScript as the programming language and bootstrap as the style language.
+The aspect of containerization docker has been used to make it possible.
+
+## Contact Information
+
+For more information you can contact me via email <span>cmcharels.muli@gmail.com</span>.
+
+## Licence/Copyright
+
+For licence/copyright information check on the <a href="LICENCE.md"><strong>Licence.md</strong></a> file.
+
+## Credits
+Special appreciation given to Moringa School.
