@@ -1,0 +1,45 @@
+---
+- name: yolo playbook
+  hosts: all
+  tasks:
+     - name: Install git
+       apt:
+         name: git
+         state: present
+         update_cache: yes
+     - name: Clone repo
+       git:
+         repo: 'https://github.com/chaxito/yolo.git'
+         dest: /home/charles/yolo
+     - name: Update cache
+       apt:
+         update_cache: yes
+     - name: Install required dependencies
+       apt:
+         name:
+           - apt-transport-https
+           - ca-certificates
+           - curl
+           - gnupg
+           - software-properties-common
+         update_cache: yes
+     - name: Add Docker Apt Key
+       apt_key:
+         url: https://download.docker.com/linux/debian/gpg
+         state: present
+     - name: Add Docker repository into sources list
+       apt_repository:
+         repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_distribution_release }} stable
+         state: present
+     - name: Install Docker
+       apt:
+         name:
+           - docker-ce
+           - docker-ce-cli
+           - containerd.io
+           - docker-compose
+         update_cache: yes
+     - name: Start application
+       shell: docker-compose -f /home/charles/yolo/docker-compose.yaml up -d
+       args:
+         executable: /bin/bash
