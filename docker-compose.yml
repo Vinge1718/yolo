@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: mishaelr/yolomyfrontend:1.0
+    # command: tail -f /dev/null
+    container_name: containerfront
+    ports:
+      - '3000:80'
+    env_file:
+      - './.env'
+    networks:
+      - mongo_net
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: mishaelr/yolomybacked:1.0
+    # command: tail -f /dev/null
+    container_name: mongo-express-app
+    ports:
+      - '5000:5000'
+    env_file:
+      - './.env'
+    networks:
+      - mongo_net
+    depends_on:
+      - mongo  
+
+  mongo:
+    image: mongo
+    # command: tail -f /dev/null
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    env_file:
+      - './.env'
+    volumes:
+      - database:/data/db
+    networks:
+      - mongo_net
+volumes:
+    database:
+networks:
+  mongo_net:
+    driver: bridge
