@@ -1,7 +1,7 @@
 # base image
 FROM node:14.21.1-alpine
 LABEL version="1.0" \
- maintainer="Mishael Ratemo <ratemomishael@gmail.com>"
+ maintainer="Gilbert Bett <gilbertkalo.kalo@gmail.com>"
 
 # working directory
 WORKDIR /app

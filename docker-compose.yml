@@ -5,7 +5,7 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    image: mishaelr/yolomyfrontend:1.0
+    image: bett/yolomyfrontend:1.0
     # command: tail -f /dev/null
     container_name: containerfront
     ports:
@@ -20,7 +20,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    image: mishaelr/yolomybacked:1.0
+    image: bett/yolomybacked:1.0
     # command: tail -f /dev/null
     container_name: mongo-express-app
     ports:
