@@ -1,0 +1,38 @@
+pipeline{
+    agent any
+    tools{
+        nodejs "nodejs14"
+    }
+
+    stages{
+        stage('Clone Repository'){
+            steps{
+                git 'https://github.com/GBett/yolo.git'
+            }
+        }
+        stage ('Project Build') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage ('Running Tests') {
+            steps {
+                sh 'npm test'  
+            }
+       }
+       stage('Deploy to Heroku') {
+            steps {
+                withCredentials([usernameColonPassword(credentialsId: 'heroku', variable: 'HEROKU_CREDENTIALS' )])
+                {
+                    sh 'git push https://${HEROKU_CREDENTIALS}@git.heroku.com/gallery.git master'
+                }
+            }
+            post {
+            always{
+                slackSend color: "good", message:  "Deployed ${BUILD_ID}", attachments: "Deployed Link 'https://gallery.herokuapp.com/"                
+            }
+            }    
+        }
+            
+    }
+}
