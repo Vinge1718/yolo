@@ -6,12 +6,25 @@ const upload = multer();
 
 const productRoute = require('./routes/api/productRoute');
 
+const {
+    DB_USER,
+    DB_PASSWORD,
+    DB_HOST,
+    DB_PORT,
+    DB_NAME,
+  } = process.env;
+//logs
+console.log("DB_USER =" + DB_USER)
+console.log("DB_PASSWORD =" + DB_PASSWORD)
+console.log("DB_PORT =" + DB_PORT)
+console.log("DB_HOST =" + DB_HOST)
+console.log("DB_NAME =" + DB_NAME)
 // Connecting to the Database
 let mongodb_url = 'mongodb://localhost/';
 let dbName = 'yolomy';
 
 // define a url to connect to the database
-const MONGODB_URI = process.env.MONGODB_URI || mongodb_url + dbName
+const MONGODB_URI = process.env.DB_HOST || mongodb_url + dbName
 mongoose.connect(MONGODB_URI,{useNewUrlParser: true, useUnifiedTopology: true  } )
 let db = mongoose.connection;
 

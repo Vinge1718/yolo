@@ -1,12 +1,29 @@
 version: '3'
 services:
-  web:
-    image: nginx
+  client:
+    image: engtomno/tomno-clinton-app:latest
+    stdin_open: true
+    tty: true 
     ports:
-      - "80:80"
+      - "3000:3000"
+  backend:
     depends_on:
-      - db
-  db:
-    image: mysql
+      - mongo
+    image: engtomno/tomno-clinton-app-backend:latest
+    stdin_open: true
+    tty: true 
+    ports:
+      - "5000:5000"
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      - DB_HOST=mongodb://mongo/
+  mongo:
+    image: mongo
+    restart: always
+    volumes:
+      - db:/data/db
+    ports:
+      - '27017:27017'
+
+
+volumes:
+  db:

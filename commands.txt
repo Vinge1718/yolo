@@ -1,0 +1,10 @@
+docker build -t tomno-clinton-app .
+docker build -t tomno-clinton-app-backend .
+
+docker tag tomno-clinton-app:latest engtomno/tomno-clinton-app:latest
+docker tag tomno-clinton-app-backend:latest engtomno/tomno-clinton-app-backend:latest
+docker login -u="EngTomno" -p="Tomno1998"
+docker push engtomno/tomno-clinton-app:latest
+docker push engtomno/tomno-clinton-app-backend:latest
+docker run -it -p 3000:3000 tomno-clinton-app
+docker compose up
