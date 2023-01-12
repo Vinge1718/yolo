@@ -1,0 +1,28 @@
+---
+- name: yolo application deployment
+  hosts: localhost
+  tasks:
+   - name: install the applicaion
+     shell:  |
+        apt-get install -y git
+        apt-get install -y nodejs
+        ln -s /usr/bin/nodejs /usr/bin/node
+        apt-get install -y npm
+        npm install -g npm@latest
+        wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+        sudo apt-get install gnupg
+        wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+        sudo apt-get update
+        touch /etc/apt/sources.list.d/mongodb-org-6.0.list
+        sudo apt-get update
+        sudo apt-get install -y mongodb-org
+        sudo systemctl start mongod
+        git config --global --unset http.proxy
+        git config --global --unset https.proxy
+        git clone https://EngTomno:Tomno1998@github.com/EngTomno/yolo.git
+        cd /yolo/client
+        npm install
+        npm start
+        cd ../backend
+        npm install
+        npm start
