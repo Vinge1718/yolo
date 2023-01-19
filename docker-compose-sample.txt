@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: your_dockerfile
+    image: yourDochubname/app_nane
+    container_name: name_of_your_app
+    ports:
+      - '8000:8000'
+    env_file:
+      - './.env'
+    networks:
+      - network_name
+    depends_on:
+      - mongo- can be anyother db
+
+  mongo:
+    image: imagename (eg Mongo)
+    container_name: name_of_your_conainer-(e,g mongodb)
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - database:/data/db
+    networks:
+      - your_network
+volumes:
+  database:
+
+networks:
+  your_network:
+    driver: bridge
