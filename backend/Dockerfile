@@ -1,12 +1,16 @@
-FROM node
+FROM node:16-alpine
 
-RUN apt-get update && apt-get upgrade -y \
-    && apt-get clean
+RUN mkdir /app
 
-WORKDIR /backend
+WORKDIR /app
+
+COPY package.json /app/
+COPY package-lock.json /app/
 
 RUN npm install
 
-EXPOSE 5000
+COPY . /app/
+
+EXPOSE 3000
 
 CMD [ "npm", "start" ]
