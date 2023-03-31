@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    container_name: docker_clientapp
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    environment:
+      PORT: 3000

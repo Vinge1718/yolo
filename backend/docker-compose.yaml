@@ -1,0 +1,28 @@
+version: '3'
+services:
+  app:
+    container_name: docker_backendapp
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
+    depends_on:
+      - mongo
+    environment:
+      PORT: 3000
+      DATABASE_URL: 'mongodb://localhost/'
+  mongo:
+    container_name: docker_backendapp_mongo
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mildred2023
+      MONGO_INITDB_ROOT_PASSWORD: mildred2023
+
+    volumes:
+      - test-vol:/data/db
+
+volumes:
+  test-vol:
