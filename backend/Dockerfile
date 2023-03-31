@@ -3,10 +3,10 @@ FROM node
 RUN apt-get update && apt-get upgrade -y \
     && apt-get clean
 
-WORKDIR /client
+WORKDIR /backend
 
 RUN npm install
 
-EXPOSE 3000
+EXPOSE 5000
 
 CMD [ "npm", "start" ]
