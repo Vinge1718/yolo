@@ -13,14 +13,13 @@ services:
       - mongo
     environment:
       PORT: 3000
-      DATABASE_URL: 'mongodb://127.0.0.1:27017/'
+      DATABASE_URL: 'mongodb://group1:group1@mongo:27017/'
   mongo:
-    container_name: docker_backendapp_mongo
+    container_name: docker_mongo_group1
     image: mongo
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mildred2023
-      MONGO_INITDB_ROOT_PASSWORD: mildred2023
-
+      MONGO_INITDB_ROOT_USERNAME: group1
+      MONGO_INITDB_ROOT_PASSWORD: group1
     volumes:
       - test-vol:/data/db
 
