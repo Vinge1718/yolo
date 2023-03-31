@@ -13,7 +13,7 @@ services:
       - mongo
     environment:
       PORT: 3000
-      DATABASE_URL: 'mongodb://localhost/'
+      DATABASE_URL: 'mongodb://127.0.0.1:27017/'
   mongo:
     container_name: docker_backendapp_mongo
     image: mongo
