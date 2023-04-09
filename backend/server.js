@@ -7,7 +7,7 @@ const upload = multer();
 const productRoute = require('./routes/api/productRoute');
 
 // Connecting to the Database
-let mongodb_url = 'mongodb+srv://brilllian:lenovo@cluster0.fbyztjh.mongodb.net/?retryWrites=true&w=majority';
+let mongodb_url = 'mongodb+srv://brillian:lenovo@cluster0.fbyztjh.mongodb.net/?retryWrites=true&w=majority';
 let dbName = 'darkroom';
 
 // define a url to connect to the database
