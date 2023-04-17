@@ -1,0 +1,43 @@
+version: '3'
+services:
+  frontend:
+   container_name: frontend
+   build:
+    context: ./client
+    dockerfile: Dockerfile
+   image: ms-frontend
+   ports:
+     - 3000:3000
+   networks:
+      tier-network:
+   depends_on:
+     - backend
+
+  backend:
+   container_name: backend
+   build:
+    context: ./backend
+    dockerfile: Dockerfile
+   image: ms-backend
+   ports:
+     - "6000:6000"
+   environment:
+    PORT: 6000
+    MONGO_URI: 'mongodb+srv://brillian:lenovo@cluster0.fbyztjh.mongodb.net/?retryWrites=true&w=majority'
+   depends_on:
+     - mongo
+   networks:
+      tier-network:
+  mongo:
+    container_name: database
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      tier-network:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: brillian
+      MONGO_INITDB_ROOT_PASSWORD: lenovo
+networks:
+  tier-network:
+    driver: bridge
