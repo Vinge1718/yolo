@@ -39,7 +39,9 @@ After running docker-compose up, the yolo-app-microservice started and generated
 **REPOSITORY    TAG       IMAGE ID       CREATED        SIZE**
 
 ms-frontend   latest    0560f58bc022   14 hours ago   423MB
+
 ms-backend    latest    a05d3cc6295d   20 hours ago   156MB
+
 mongo         latest    9a5e0d0cf6de   4 weeks ago    646MB
 
 **Dockerhub link**
