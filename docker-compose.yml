@@ -9,7 +9,8 @@ services:
    ports:
      - 3000:3000
    networks:
-      tier-network:
+     frontend-tier-network:
+       ipv4_address: 172.128.0.3
    depends_on:
      - backend
 
@@ -23,21 +24,33 @@ services:
      - "6000:6000"
    environment:
     PORT: 6000
-    MONGO_URI: 'mongodb+srv://brillian:lenovo@cluster0.fbyztjh.mongodb.net/?retryWrites=true&w=majority'
+    MONGO_URI: 'mongodb://brillian:lenovo@172.127.0.1:27017'
    depends_on:
      - mongo
    networks:
-      tier-network:
+     backend-tier-network:
+       ipv4_address: 172.127.0.2
+     frontend-tier-network:
+       ipv4_address: 172.128.0.2
   mongo:
     container_name: database
     image: mongo:latest
     ports:
       - 27017:27017
     networks:
-      tier-network:
+      backend-tier-network:
+        ipv4_address: 172.127.0.3
     environment:
       MONGO_INITDB_ROOT_USERNAME: brillian
       MONGO_INITDB_ROOT_PASSWORD: lenovo
 networks:
-  tier-network:
-    driver: bridge
+  frontend-tier-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.128.0.0/16
+  backend-tier-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.127.0.0/16
