@@ -1,15 +1,15 @@
 FROM node:16-alpine
 
-RUN mkdir /app
+RUN mkdir /client
 
-WORKDIR /app
+WORKDIR /client
 
-COPY package.json /app/
-COPY package-lock.json /app/
+COPY package.json /client/
+COPY package-lock.json /client/
 
 RUN npm install
 
-COPY . /app/
+COPY . /client/
 
 EXPOSE 3000
 
