@@ -24,6 +24,5 @@ services:
       MONGODB_URI: 'mongodb+srv://mildredyolo:UNZxfZ7QElu1OFWa@cluster0.v3fixr7.mongodb.net/test'
     volumes:
       - test-vol:/data/db
-
 volumes:
   test-vol:
