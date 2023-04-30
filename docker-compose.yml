@@ -19,11 +19,11 @@ services:
    build:
     context: ./backend
     dockerfile: Dockerfile
-   image: ms-backend
+   image: ms-yolo-backend
    ports:
-     - "6000:6000"
+     - 5000:5000
    environment:
-    PORT: 6000
+    PORT: 5000
     MONGO_URI: 'mongodb://brillian:lenovo@172.127.0.1:27017'
    depends_on:
      - mongo
@@ -35,14 +35,19 @@ services:
   mongo:
     container_name: database
     image: mongo:latest
+    restart: always
+    volumes:
+      - mongodb_data:/data/db
     ports:
-      - 27017:27017
+      - "27017:27017"
     networks:
       backend-tier-network:
         ipv4_address: 172.127.0.3
     environment:
       MONGO_INITDB_ROOT_USERNAME: brillian
       MONGO_INITDB_ROOT_PASSWORD: lenovo
+volumes:
+  mongodb_data:
 networks:
   frontend-tier-network:
     ipam:
