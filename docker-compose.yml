@@ -2,10 +2,10 @@ version: '3'
 services:
   frontend:
    container_name: frontend
+   image: bchepngeno1/client
    build:
     context: ./client
     dockerfile: Dockerfile
-   image: ms-frontend
    ports:
      - 3000:3000
    networks:
@@ -16,10 +16,10 @@ services:
 
   backend:
    container_name: backend
+   image: bchepngeno1/backend
    build:
     context: ./backend
     dockerfile: Dockerfile
-   image: ms-yolo-backend
    ports:
      - 5000:5000
    environment:
