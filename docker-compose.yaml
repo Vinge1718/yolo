@@ -6,7 +6,7 @@ services:
     image: {{ client_image }}
     stdin_open: true 
     ports:
-      - 4000:80
+      - 5000:5000
     networks:
       frontend-net:
         ipv4_address: 172.51.0.101
