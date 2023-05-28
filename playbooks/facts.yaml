@@ -1,0 +1,6 @@
+- name: Gather machine info
+  hosts: all
+  tasks:
+    - name: Facts
+      debug:
+        var: ansible_facts
