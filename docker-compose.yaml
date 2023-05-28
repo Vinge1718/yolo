@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  frontend:
+    container_name: frontend_container
+    image: {{ client_image }}
+    stdin_open: true 
+    ports:
+      - 4000:80
+    networks:
+      frontend-net:
+        ipv4_address: 172.51.0.101
+  backend:
+    container_name: backend_container
+    ports:
+      - 3000:3000
+    image: {{ backend_image }}
+    environment:
+      PORT: 3000
+      DATABASE_URL: 'mongodb://backend:backend@172.100.0.101:27017'
+    networks:
+      backend-net:
+        ipv4_address: 172.100.0.100
+      frontend-net:
+        ipv4_address: 172.51.0.100
+    depends_on:
+      - database
+    volumes:
+      - .:/app
+  database:
+    container_name: backend_database
+    ports:
+      - 27017:27017
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: backend
+      MONGO_INITDB_ROOT_PASSWORD: backend
+    networks:
+      backend-net:
+        ipv4_address: 172.100.0.101
+    volumes:
+        - backend_volume:/data/db
+networks:
+  backend-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.100.0.0/16
+  frontend-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.51.0.0/16
+
+volumes:
+  backend_volume:

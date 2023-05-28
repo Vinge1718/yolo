@@ -1,0 +1,33 @@
+- hosts: all
+  become: true
+  vars:
+    client_image: mngaruiya/yolodb_backend:v1.0.1
+    backend_image: mngaruiya/yoloreactapiclient:v1.0.1
+    app_directory: /opt/yolo
+  tasks:
+    - name: Pull client image
+      shell: docker pull {{ client_image }}
+      args:
+        executable: /bin/bash
+
+    - name: Pull backend image
+      shell: docker pull {{ backend_image }}
+      args:
+        executable: /bin/bash
+
+    - name: Create app directory
+      ansible.builtin.file:
+        path: "{{ app_directory }}"
+        state: directory
+        mode: '0755'
+
+    - name: Copy docker-compose file
+      template:
+        src: ./../docker-compose.yaml
+        dest: "{{ app_directory }}/docker-compose.yaml"
+
+    - name: Start the app
+      shell: docker-compose -f docker-compose.yaml up -d
+      args:
+        executable: /bin/bash
+        chdir: "{{ app_directory }}"
