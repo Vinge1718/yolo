@@ -1,8 +1,8 @@
 - hosts: all
   become: true
   vars:
-    client_image: mngaruiya/yolodb_backend:v1.0.1
-    backend_image: mngaruiya/yoloreactapiclient:v1.0.1
+    client_image: mngaruiya/yoloreactapiclient:v1.0.1 
+    backend_image: mngaruiya/yolodb_backend:v1.0.1
     app_directory: /opt/yolo
   tasks:
     - name: Pull client image
