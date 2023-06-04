@@ -1,0 +1,22 @@
+---
+- name: Deploy Node.js app with React frontend and MongoDB
+  hosts: localhost
+  gather_facts: false
+  become: true
+
+  tasks:
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Clone the Node.js app repository
+      git:
+        repo: https://github.com/Brillianne/yolo-app-microservice.git
+        dest: /Desktop/moringa
+       
+
+    - name: Build and run the containers
+      command: docker-compose up -d
+      args:
+        chdir: /Desktop/moringa/yolo-app-microservice
