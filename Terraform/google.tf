@@ -1,12 +1,12 @@
 provider "google" {
   project     = "subtle-creek-386806"
-  region      = "us-central1"
+  region      = "europe-west1"
 }
 
 resource "google_compute_instance" "default" {
   name         = "test"
   machine_type = "f1-micro"
-  zone         = "us-central1-a"
+  zone         = "europe-west1-b"
 
   tags = ["foo", "bar"]
 
@@ -18,6 +18,9 @@ resource "google_compute_instance" "default" {
       }
     }
   }
+
+   allow_stopping_for_update = true
+
 network_interface {
     network = "default"
 
