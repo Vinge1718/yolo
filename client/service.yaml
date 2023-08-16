@@ -1,0 +1,15 @@
+apiVersion: v1
+    kind: Service
+    metadata:
+      name: yolo_client_service
+      namespace: default
+      labels:
+        run: yolo_client_service
+    spec:
+      type: NodePort
+      ports:
+      _ name: yolo_client_port
+        port: 3000
+        protocol: TCP
+      selector:
+        app: yolo_client
