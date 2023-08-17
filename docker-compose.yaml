@@ -1,0 +1,28 @@
+version: '3'
+services:
+ app:
+    container_name: yolo_client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    stdin_open: true
+    volumes:
+      - .:/app
+    depends_on:
+      - backend
+ backend:
+    container_name: yolo_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    environment:
+      PORT: 5000
+      MONGODB_URI: 'mongodb+srv://mildredyolo:UNZxfZ7QElu1OFWa@cluster0.v3fixr7.mongodb.net/test'
+    volumes:
+      - test-vol:/data/db
+volumes:
+  test-vol:

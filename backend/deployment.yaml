@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      labels:
+        app: backend_app
+      name: backend_app_deployment
+      namespace: default
+    spec:
+      selector:
+        matchLabels:
+          app: backend_app
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: backend_app
+        spec:
+          containers:
+          - name: backend_app
+            image: awuorm/yolo_backend:v1.0.0
+            ports:
+            - containerPort: 5000
+            imagePullPolicy: Always
+            resources:
+              requests:
+                memory: "500Mi"
+                cpu: "400m"
+              limits:
+                memory: "1Gi"
+                cpu: "1"
+            livenessProbe:
+              httpGet:
+                path: /actuator/health
+                port: 5000
+              initialDelaySeconds: 180 # start checking after 180s after pod starts, should be longer than service start time. Some service takes minutes to start, so we set a big value here.
+              periodSeconds: 10 # check health check api every 10 seconds
+              timeoutSeconds: 3 # if response time is longer than 3 seconds, we consider the check as failed
+              failureThreshold: 3 # if check fails for 3 times in a row, we consider the pod is in a bad state, pod will be restarted
+              successThreshold: 1 # if check succeeds for once, we consider the pod is back to normal
+            readinessProbe:
+              httpGet:
+                path: /actuator/health
+                port: 5000
+              initialDelaySeconds: 30 # start checking after 30s after pod starts. should set to a minimal value such that service able to receive requests as soon as it is ready
+              periodSeconds: 10 # check health check api every 10 seconds
+              timeoutSeconds: 3 # if response time is longer than 3 seconds, we consider the check as failed
+              failureThreshold: 3  # if check fails for 3 times in a row, we consider the pod is in a bad state, pod will be restarted
+              successThreshold: 1 # if check succeeds for once, we consider the pod is back to normal
+            volumeMounts:
+            - mountPath: "/tmp"
+              name: backend_app
+          volumes:
+          - name: backend_app
+            persistentVolumeClaim:
+              claimName: pvc-default
