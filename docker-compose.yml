@@ -1,0 +1,20 @@
+version: '1'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    networks:
+      - IP-2-network
+  mongo:
+    build:
+      context: .
+      dockerfile: Dockerfile.mongodb
+    networks:
+      - IP-2-network
+networks:
+  IP-2-network:
