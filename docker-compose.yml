@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  ecom-client:
+  ecom-ip-client:
     build: ./client
     container_name: ecom-client
     stdin_open: true
@@ -11,18 +11,18 @@ services:
     networks:
       - ecom-net
 
-  ecom-backend:
+  ecom-ip-backend:
     build: ./backend
     container_name: ecom-backend
     restart: always
     ports:
       - "5000:5000"
     depends_on: 
-      - ecom-mongo
+      - ecom-ip-mongo
     networks:
       - ecom-net
 
-  ecom-mongo:
+  ecom-ip-mongo:
     image: mongo
     container_name: ecom-mongo
     ports:
