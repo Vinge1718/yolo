@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  ecom-client:
+    build: ./client
+    container_name: ecom-client
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    networks:
+      - ecom-net
+
+  ecom-backend:
+    build: ./backend
+    container_name: ecom-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - ecom-mongo
+    networks:
+      - ecom-net
+
+  ecom-mongo:
+    image: mongo
+    container_name: ecom-mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - ecom-net
+    volumes:
+      - type: volume
+        source: ecom-mongo-data
+        target: /data/db
+
+networks:
+  ecom-net:
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: 10.3.0.0/28
+          ip_range: 10.3.0.0/28
+
+volumes:
+  ecom-mongo-data:
+    driver: local
