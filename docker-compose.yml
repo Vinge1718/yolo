@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   ecom-ip-client:
+    image: mrmiano/ecom-client-image:v1.0.0
     build: ./client
     container_name: ecom-client
     stdin_open: true
@@ -12,6 +13,7 @@ services:
       - ecom-net
 
   ecom-ip-backend:
+    image: mrmiano/ecom-backend-image:v1.0.0
     build: ./backend
     container_name: ecom-backend
     restart: always
