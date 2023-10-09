@@ -1,3 +1,5 @@
+#This Dockerfile conducts a multistage build to ensure the final image size is as small as possible
+
 FROM node:14-slim AS build
 
 WORKDIR /usr/src/app

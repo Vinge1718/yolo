@@ -1,5 +1,7 @@
 #This file launches a NodeJS e-commerce application as microservices running on Docker containers
+
 #With this file, there's no need to clone the rest of the source code
+
 #The only pre-requisite is to have Docker and the docker-compose plugin installed in your environment
 
 
@@ -43,7 +45,7 @@ services:
         source: ecom-mongo-data
         target: /data/db
 
-#Creates the network infrastructure for the containers
+#Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
   ecom-net:
     driver: bridge
@@ -53,7 +55,7 @@ networks:
         - subnet: 10.3.0.0/28
           ip_range: 10.3.0.0/28
 
-#Creates the Docker volume to persist data stored in the database
+#Creates a Docker volume that persists all the data stored in the database
 volumes:
   ecom-mongo-data:
     driver: local
