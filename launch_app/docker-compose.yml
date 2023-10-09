@@ -1,6 +1,6 @@
 #This file launches a NodeJS e-commerce application as microservices running on Docker containers
 
-#With this file, there's no need to clone the rest of the source code
+#With this file, there's no need to clone the entire repository. Just copy this file and run it in your environment
 
 #The only pre-requisite is to have Docker and the docker-compose plugin installed in your environment
 
