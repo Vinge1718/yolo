@@ -45,4 +45,4 @@ Make sure that you have the following installed:
 
 https://hub.docker.com/repositories/mrmiano
 
-![Diagram](DockerHub Screenshot.png)
+![Diagram](DockerHub_Screenshot.png)
