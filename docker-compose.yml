@@ -51,6 +51,7 @@ services:
 #Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
   ecom-net:
+    name: ecom-net
     driver: bridge
     attachable: true
     ipam:
