@@ -24,7 +24,7 @@ Make sure that you have the following installed:
   `docker compose up`
 
 ### Method 2
-- NOTE: This method requires cloning of this repository
+- NOTE: This method requires cloning of this entire repository
 
 - Clone this repository to your local machine
 
