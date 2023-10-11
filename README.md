@@ -1,3 +1,9 @@
+# Overview
+This project involved the containerization and deployment of an e-commerce application using Docker.
+Here's a visual illustration of the application architecture and how it can be deployed:
+
+![Diagram](E-Comm_Architecture.png)
+
 # Requirements
 Make sure that you have the following installed:
 - [Docker](https://docs.docker.com/engine/install/) 
