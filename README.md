@@ -4,6 +4,8 @@ Here's a visual illustration of the application architecture and how it can be d
 
 ![Diagram](E-Comm_Architecture.png)
 
+For a detailed guide on the steps taken to containerize the application, see the [PROCEDURE.md] file
+
 # Requirements
 Make sure that you have the following installed:
 - [Docker](https://docs.docker.com/engine/install/) 
