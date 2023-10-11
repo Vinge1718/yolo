@@ -12,7 +12,7 @@ Make sure that you have the following installed:
 ### Method 1 (faster)
 - NOTE: This method does not require cloning of this repository
 
-- Navigate to the launch_app folder and copy the [docker-compose.yml](https://github.com/MrMiano-DevOps/yolo/blob/master/launch_app/docker-compose.yml) file
+- Navigate to the launch_app folder and copy the contents of the [docker-compose.yml](https://github.com/MrMiano-DevOps/yolo/blob/master/launch_app/docker-compose.yml) file
 
 - On your local machine, navigate to your desired directory and create
   a docker-compose.yml file, paste the contents into it and save
