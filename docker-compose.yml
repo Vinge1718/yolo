@@ -1,0 +1,65 @@
+#This file builds the Docker images for a NodeJS e-commerce application and runs it as microservices on Docker containers
+
+#To ensure successful execution, clone this entire repository and execute this file while in the root folder of the cloned repository
+
+#It's also a requirement to have Docker and the docker-compose plugin installed in your environment
+
+#To launch this app without having to clone the entire repository, use the docker-compose file located in the "launch_app" folder
+
+version: "3.8"
+
+services:
+
+  #Builds the frontend Docker image and creates the frontend microservice
+  ecom-ip-client:
+    image: mrmiano/ecom-client-image:v1.0.0
+    build: ./client
+    container_name: ecom-client
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    networks:
+      - ecom-net
+
+  #Builds the backend Docker image and creates the backend microservice
+  ecom-ip-backend:
+    image: mrmiano/ecom-backend-image:v1.0.0
+    build: ./backend
+    container_name: ecom-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - ecom-ip-mongo
+    networks:
+      - ecom-net
+
+  #Creates the database microservice
+  ecom-ip-mongo:
+    image: mongo
+    container_name: ecom-mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - ecom-net
+    volumes:
+      - type: volume
+        source: ecom-mongo-data
+        target: /data/db
+
+#Creates the network infrastructure necessary for the containers to communicate with each other
+networks:
+  ecom-net:
+    name: ecom-net
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: 10.3.0.0/28
+          ip_range: 10.3.0.0/28
+
+#Creates a Docker volume that persists all the data stored in the database
+volumes:
+  ecom-mongo-data:
+    driver: local

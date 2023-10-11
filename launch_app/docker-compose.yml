@@ -1,0 +1,62 @@
+#This file launches a NodeJS e-commerce application as microservices running on Docker containers
+
+#With this file, there's no need to clone the entire repository. Just copy this file and run it in your environment
+
+#The only pre-requisite is to have Docker and the docker-compose plugin installed in your environment
+
+
+version: "3.8"
+
+services:
+
+  #Creates the frontend microservice
+  ecom-ip-client:
+    image: mrmiano/ecom-client-image:v1.0.0
+    container_name: ecom-client
+    stdin_open: true
+    tty: true
+    ports:
+      - "3000:3000"
+    networks:
+      - ecom-net
+
+  #Creates the backend microservice
+  ecom-ip-backend:
+    image: mrmiano/ecom-backend-image:v1.0.0
+    container_name: ecom-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on: 
+      - ecom-ip-mongo
+    networks:
+      - ecom-net
+
+  #Creates the database microservice
+  ecom-ip-mongo:
+    image: mongo
+    container_name: ecom-mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - ecom-net
+    volumes:
+      - type: volume
+        source: ecom-mongo-data
+        target: /data/db
+
+#Creates the network infrastructure necessary for the containers to communicate with each other
+networks:
+  ecom-net:
+    name: ecom-net
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: 10.3.0.0/28
+          ip_range: 10.3.0.0/28
+
+#Creates a Docker volume that persists all the data stored in the database
+volumes:
+  ecom-mongo-data:
+    driver: local
