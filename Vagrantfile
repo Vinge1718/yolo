@@ -69,6 +69,7 @@ Vagrant.configure("2") do |config|
   # SHELL
   # Provisioning configuration for Ansible.
 config.vm.provision "ansible" do |ansible|
-ansible.playbook = "playbook.yml"
-end
+  ansible.playbook = "playbook.yml"
+config.vm.network "forwarded_port", guest: 3000, host: 3000  
+  end
 end

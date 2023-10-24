@@ -19,6 +19,8 @@ services:
     tty: true
     ports:
       - "3000:3000"
+    depends_on: 
+      - brian-yolo-backend
     networks:
       - app-net
 
@@ -27,6 +29,8 @@ services:
     image: brianbwire/brian-yolo-backend:v1.0.0
     build: ./backend
     container_name: brian-yolo-backend
+    stdin_open: true
+    tty: true
     restart: always
     ports:
       - "5000:5000"
