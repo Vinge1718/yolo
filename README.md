@@ -1,23 +1,54 @@
+# Overview
+This project involved the containerization and deployment of a full-stack yolo application using Docker.
+
+
 # Requirements
-Make sure that you have the following installed:
-- [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) 
-- npm 
-- [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) and start the mongodb service with `sudo service mongod start`
+Install the docker engine here:
+- [Docker](https://docs.docker.com/engine/install/) 
 
-## Navigate to the Client Folder 
- `cd client`
+## How to launch the application 
+### Method 1 (faster)
+- NOTE: This method does not require cloning of this repository
 
-## Run the folllowing command to install the dependencies 
- `npm install`
+- Navigate to the launch_app folder and copy the contents of the [docker-compose.yaml] in the root of the project
+- On your local machine, navigate to your desired directory and create
+  a docker-compose.yaml file, paste the contents into it and save
 
-## Run the folllowing to start the app
- `npm start`
+  `touch docker-compose.yaml`
 
-## Open a new terminal and run the same commands in the backend folder
- `cd ../backend`
+- Launch the application using docker compose up
 
- `npm install`
+  `docker compose up`
 
- `npm start`
+### Method 2
+- NOTE: This requires cloning of this whole repository
 
- ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+- Clone this repository to your local machine
+
+  `git clone https://github.com/brianbwire5/yolo.git`
+
+- Navigate to the root directory of your cloned repository
+
+  `cd yolo`
+
+- Launch the application using the docker compose command
+
+  `docker compose up`
+
+## Access the application on your browser using the following URL
+ `http://localhost:3000/`
+
+## How to stop the application
+- Navigate back to your terminal and press "ctrl+c" 
+
+## How to terminate the application completely
+ `docker compose down`
+
+## The Docker images used in this application are sourced from this repository
+
+https://hub.docker.com/repositories/brianbwire
+
+![Alt text](image.png)
+
+## How to run the app
+Use vagrant up --provison command

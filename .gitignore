@@ -1,0 +1,9 @@
+app-mongo-data
+app-mongo-data/
+vars.yml
+vault.yml
+.vagrant/
+.vscode/
+.vscode
+.vscode/*
+.vscode/*.json
