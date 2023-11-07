@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  serviceName: mongo-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo
+        ports:
+        - containerPort: 56081
+          name: mongo
+        volumeMounts:
+        - name: mongo-storage
+          mountPath: /data/db
+  volumeClaimTemplates:
+  - metadata:
+      name: database-persistent-volume-claim
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mongo
+  ports:
+    - port: 56081
+      targetPort: 56081

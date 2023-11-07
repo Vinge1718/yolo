@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config
+data:
+  mongo-url: "mongodb://mongo-service:56081/yoloip
