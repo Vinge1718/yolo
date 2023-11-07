@@ -1,23 +1,38 @@
-# Requirements
-Make sure that you have the following installed:
-- [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) 
-- npm 
-- [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) and start the mongodb service with `sudo service mongod start`
+# Deploy Yolo Application to GKE(Google Kubernetes Engine) 
+# Steps
+- Clone the repository
+   
+    git clone https://github.com/RAJABIBRAZ/yolo
+    
 
-## Navigate to the Client Folder 
- `cd client`
+- Checkout to `yolo-ip4` branch
+    
+    git checkout yolo-ip4
+    
+- Set up Google SDK CLI then create a kubernetes cluster on GKE.
+    
+    gcloud container clusters create yolo-ip4 --num-nodes=3
+    
+-  Setup Connection to created GKE cluster in with your local machine or cloud shell.
+    sh
+    gcloud container clusters get-credentials yolo-ip4 --zone us-central1-a --project <PROJECT_ID>
+    
+-  Run manifest files to create deployment.
+    sh
+    kubectl apply -f manifests
+    
+- Confirm status of all deployments.
+    sh
+    kubectl get all
+    
+- Check status of service.
+    sh
+    kubectl get svc
+    
+- Get IP of the service in the browser.
 
-## Run the folllowing command to install the dependencies 
- `npm install`
 
-## Run the folllowing to start the app
- `npm start`
-
-## Open a new terminal and run the same commands in the backend folder
- `cd ../backend`
-
- `npm install`
-
- `npm start`
-
- ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+# Cleanup
+```sh
+kubectl delete -f manifests
+```

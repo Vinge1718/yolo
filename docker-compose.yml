@@ -1,0 +1,57 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:jammy
+    container_name: yolo-database
+    ports:
+      - '56081:56081'
+    volumes:
+      - ./mongo-data:/data/db
+    networks:
+      - yolo_network
+  backend:
+    image: rajabibraz/yolo-backend:v1.0
+    build:
+      context: ./backend
+    container_name: yolo-backend
+    ports:
+      - '5000:5000'
+    volumes:
+      - ./backend:/app/backend/
+    environment:
+      MONGO_URI: mongodb://mongo:56081/yoloip4
+
+    depends_on:
+      - mongo
+
+    networks:
+      - yolo_network
+
+  client:
+    image: rajabibraz/yolo-client:v1.0
+    build:
+      context: ./client
+    container_name: yolo-client
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    volumes:
+      - ./client:/app/client/
+    depends_on:
+      - backend
+
+    networks:
+      - yolo_network
+
+networks:
+  yolo_network:
+    name: yolo_network
+    driver: bridge
+
+volumes:
+  mongo-data:
+  backend:
+  client:
