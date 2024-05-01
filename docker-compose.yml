@@ -19,6 +19,9 @@ services:
     volumes:
       - ./backend:/app
 
+    environment:
+      - mongodb_url=mongodb://localhost:27017/yolomy
+
     networks:
       - my-network
     depends_on:
