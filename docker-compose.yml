@@ -25,5 +25,11 @@ services:
     volumes:
       - ./data:/data/db
 
+networks:
+  my-network:
+    driver: bridge
+
+
   volumes:
     data:
+
