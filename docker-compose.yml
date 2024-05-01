@@ -6,6 +6,9 @@ services:
       - "3000:3000"
     volumes:
       - ./client:/app
+
+    networks:
+      - my-network
     depends_on:
       - backend
 
@@ -15,6 +18,9 @@ services:
       - "5000:5000"
     volumes:
       - ./backend:/app
+
+    networks:
+      - my-network
     depends_on:
       - db
 
@@ -24,11 +30,12 @@ services:
       - "27017:27017"
     volumes:
       - ./data:/data/db
+    networks:
+      - my-network
 
-networks:
-  my-network:
-    driver: bridge
-
+  networks:
+    my-network:
+       driver: bridge
 
   volumes:
     data:
