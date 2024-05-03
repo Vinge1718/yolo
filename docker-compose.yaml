@@ -1,0 +1,28 @@
+version: "3.5"
+
+ services :
+ 
+   yolo.client:
+     build:
+       context: ./client
+       dockerfile: Dockerfile
+    container_name: yolo-client
+    command: npm start
+       ports:
+     -"3000:3000"
+  yolo.backend:
+     build:
+       context: ./backend
+       dockerfile: Dockerfile
+    container_name: yolo-backend
+    command: npm start
+       ports:
+     -"5000:5000"     
+  
+
+  networks:
+  yolo_network:
+    driver: bridge
+     
+
+    
