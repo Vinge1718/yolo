@@ -10,7 +10,7 @@ services:
     volumes:
       - ./client:/app
 
-  backend:
+  yolo-backend:
     build: ./backend
     ports:
       - "5000:5000"
@@ -24,4 +24,6 @@ networks:
     driver: bridge
 
 
-    
+volumes:
+  yolo-client:
+  yolo-backend:
