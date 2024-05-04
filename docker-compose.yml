@@ -1,7 +1,9 @@
-version: '3'
+version: '3.7'
 services:
   client:
-    build: ./client
+    image: kipkoechdon/client-image:v1.0.0
+    stdin_open: true
+    tty: true
     ports:
       - "3000:3000"
     volumes:
@@ -13,14 +15,14 @@ services:
       - backend
 
   backend:
-    build: ./backend
+    image: kipkoechdon/yolo-backend-image:v1.0.0
     ports:
       - "5000:5000"
     volumes:
       - ./backend:/app
 
     environment:
-      - mongodb_url=mongodb://localhost:27017/yolomy
+      - mongodb_url=mongodb://127.0.0.1:27017
 
     networks:
       - my-network
@@ -36,10 +38,11 @@ services:
     networks:
       - my-network
 
-  networks:
+
+volumes:
+    data:
+
+networks:
     my-network:
        driver: bridge
-
-  volumes:
-    data:
 
