@@ -27,9 +27,13 @@ Make sure that you have the following installed:
 
  2. Ensure that you have docker installed
 
- 3. To run all the services at once you can use 
+ ## To run all the services at once you can use 
      `docker-compose up`
-     All the containers will be up and running
+     
+   All the containers will be up and running
 
- 4.   To access the fronted 
+ ##   To access the fronted 
      'http://localhost:3000/' Use this link to access the fronted.
+  ## sample fronted image
+
+     ![image](https://github.com/rabiot125/yolo/assets/57858087/da2bd023-2b5e-403d-9eae-11fac3158a4c)
