@@ -21,3 +21,15 @@ Make sure that you have the following installed:
  `npm start`
 
  ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+
+ # Docker Compose
+ 1. Clone the repository
+
+ 2. Ensure that you have docker installed
+
+ 3. To run all the services at once you can use 
+     `docker-compose up`
+     All the containers will be up and running
+
+ 4.   To access the fronted 
+     'http://localhost:3000/' Use this link to access the fronted.
