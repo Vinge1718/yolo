@@ -37,4 +37,4 @@ Make sure that you have the following installed:
    Use this link to access the fronted.
   ## sample fronted image
 
-     [image]
+   ![alt text](image-2.png)
