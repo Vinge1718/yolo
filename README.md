@@ -33,7 +33,8 @@ Make sure that you have the following installed:
    All the containers will be up and running
 
  ##   To access the fronted 
-     'http://localhost:3000/' Use this link to access the fronted.
+     'http://localhost:3000/' 
+   Use this link to access the fronted.
   ## sample fronted image
 
-     ![image](https://github.com/rabiot125/yolo/assets/57858087/da2bd023-2b5e-403d-9eae-11fac3158a4c)
+     [image]
