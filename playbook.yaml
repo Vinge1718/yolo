@@ -1,0 +1,13 @@
+- hosts: all
+  become: true
+  tasks:
+
+   - name: Test connection
+     ping: 
+     
+   - name: Install Apache
+     apt:
+         name: apache2
+         state: present
+
+    
