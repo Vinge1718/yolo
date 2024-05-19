@@ -26,7 +26,7 @@ running the container
 ### docker run -p 3000:3000 ivymachogu/yolo-client:v1.1.1
 
 incase you encounter an error  run
-### docker run -  -it -p 3000:3000 ivymachogu/yolo-client:v1.1.1
+### docker run  -it -p 3000:3000 ivymachogu/yolo-client:v1.1.1
 
 navigate to backend 
 
@@ -49,7 +49,7 @@ create a dockerfile with the following
 
 creating base image  
 
-### docker run -p 3000:3000 ivymachogu/yolo-backend:v1.1.1 .
+### docker run -p 5000:5000 ivymachogu/yolo-backend:v1.1.1 .
 
 running the container 
 

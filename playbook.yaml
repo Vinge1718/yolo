@@ -1,13 +1,11 @@
 - hosts: all
   become: true
-  tasks:
-
-   - name: Test connection
-     ping: 
-     
-   - name: Install Apache
-     apt:
-         name: apache2
-         state: present
-
+  roles:
+    - test-connectivity
+    - install-apache
+    - update-server
+    - docker-pull
+    - yolo-client
+    - yolo-backend
     
+    - docker-pullbackend
