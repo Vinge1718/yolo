@@ -4,8 +4,7 @@
     - test-connectivity
     - install-apache
     - update-server
-    - docker-pull
+    - install-docker
     - yolo-client
     - yolo-backend
     
-    - docker-pullbackend
