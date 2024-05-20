@@ -2,7 +2,7 @@
   become: true
   roles:
     - test-connectivity
-    - install-apache
+    - install-docker-composer
     - update-server
     - install-docker
     - yolo-client
