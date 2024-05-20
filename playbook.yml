@@ -1,0 +1,6 @@
+name: 
+hosts: all
+become: yes
+vars:
+    repo_url: https://github.com/rabiot125/yolo.git
+    user: ubuntu
