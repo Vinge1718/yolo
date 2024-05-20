@@ -2,9 +2,10 @@
   become: true
   roles:
     - test-connectivity
-    - install-apache
     - update-server
     - install-docker
     - yolo-client
     - yolo-backend
+    - git-delpoy
+    - setup-docker-containers
     
