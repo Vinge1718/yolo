@@ -1,6 +1,72 @@
-name: 
-hosts: all
-become: yes
-vars:
+---
+- name: 
+  hosts: all
+  become: yes
+  vars:
     repo_url: https://github.com/rabiot125/yolo.git
     user: ubuntu
+    dest: /home/{{ user }}/yolo
+
+  tasks:
+    - name: Clone the repository
+      git:
+        repo: "{{ repo_url}}"
+        dest: "{{ dest }}"
+        update: yes
+        force: yes
+        clone: yes
+        accept_hostkey: yes
+        recursive: yes
+        version: master
+
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install prerequisites
+      ansible.builtin.apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
+        
+
+    - name: Add apt-key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+
+    - name: Add docker repo
+      ansible.builtin.apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu focal stable
+
+    - name: Install docker
+      ansible.builtin.apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-compose
+        update_cache: true
+
+    - name: Add user vagrant to group docker
+      ansible.builtin.user:
+        name: vagrant
+        groups: docker
+        append: true
+        
+
+    - name: Install Dependecies
+     
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install Docker Python SDK
+     
+      pip:
+        name: docker==6.1.3
+        state: present
+   
