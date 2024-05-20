@@ -7,4 +7,6 @@
     - install-docker
     - yolo-client
     - yolo-backend
+    - git-delpoy
+    - setup-docker-containers
     
