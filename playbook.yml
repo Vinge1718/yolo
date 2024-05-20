@@ -6,6 +6,15 @@
     repo_url: https://github.com/rabiot125/yolo.git
     user: ubuntu
     dest: /home/{{ user }}/yolo
+    docker-images:
+       - name: backend
+         path: "{{dest}}/backend"
+         port: 5000:5000
+
+       - name: client
+         path: "{{dest}}/client"
+         port: 3000:3000
+
 
   tasks:
     - name: Clone the repository
@@ -69,4 +78,14 @@
       pip:
         name: docker==6.1.3
         state: present
-   
+
+  roles:
+    - role: build_backend
+      vars:
+         -dockerfile_path: "{{dest}}/backend"
+
+    
+    - role: build_backend
+      vars:
+         -dockerfile_path: "{{dest}}/backend"
+

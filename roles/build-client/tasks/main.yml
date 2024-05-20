@@ -1,2 +1,15 @@
 ---
 # tasks file for build-client
+- name: Buld client docker image
+  docker-image: 
+     name: client-image
+     source: build 
+     build:
+        path: "{{ dockerfile_path}}"
+        pull: yes
+
+      register: image
+
+- name: Check image
+  debug:
+    var : image

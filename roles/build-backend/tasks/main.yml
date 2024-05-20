@@ -1,2 +1,15 @@
 ---
 # tasks file for build-backend
+- name: Buld backend docker image
+  docker-image: 
+     name: backend-image
+     source: build 
+     build:
+        path: "{{ dockerfile_path}}"
+        pull: yes
+
+      register: image
+
+- name: Check image
+  debug:
+    var : image
