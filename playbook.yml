@@ -14,6 +14,7 @@
        - name: client
          path: "{{dest}}/client"
          port: 3000:3000
+  
 
 
   tasks:
@@ -80,12 +81,11 @@
         state: present
 
   roles:
-    - role: build_backend
+    - role: build-backend
       vars:
-         -dockerfile_path: "{{dest}}/backend"
+         dockerfile_path: "{{dest}}/backend"
 
     
-    - role: build_backend
+    - role: build-client
       vars:
-         -dockerfile_path: "{{dest}}/backend"
-
+         dockckerfile_path: "{{dest}}/client"

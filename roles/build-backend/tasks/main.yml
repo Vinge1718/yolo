@@ -8,7 +8,7 @@
         path: "{{ dockerfile_path}}"
         pull: yes
 
-      register: image
+  register: image
 
 - name: Check image
   debug:
