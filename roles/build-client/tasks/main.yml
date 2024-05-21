@@ -1,7 +1,7 @@
 ---
 # tasks file for build-client
-- name: Buld client docker image
-  docker-image: 
+- name: Build client docker image
+  docker_image: 
      name: client-image
      source: build 
      build:

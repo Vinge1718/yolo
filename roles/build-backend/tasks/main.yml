@@ -1,7 +1,7 @@
 ---
 # tasks file for build-backend
-- name: Buld backend docker image
-  docker-image: 
+- name: Build backend docker image
+  docker_image: 
      name: backend-image
      source: build 
      build:

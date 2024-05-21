@@ -1,0 +1,12 @@
+---
+# tasks file for clone-repo
+- name: Clone the repository
+  git:
+    repo: "{{ repo_url}}"
+    dest: "{{ dest }}"
+    update: yes
+    force: yes
+    clone: yes
+    accept_hostkey: yes
+    recursive: yes
+    version: master

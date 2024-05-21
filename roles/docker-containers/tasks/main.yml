@@ -1,0 +1,16 @@
+---
+# tasks file for docker-containers
+
+- name: Install docker compose
+  ansible.builtin.pip:
+   name:
+     - docker-compose
+
+   state: present
+
+- name: Run docker compose
+  docker_compose: 
+    project_src: /home/ubuntu/yolo/
+    files:
+     -"/home/ubuntu/yolo/docker-compose.yml""
+    state: present

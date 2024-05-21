@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "geerlingguy/ubuntu2004"
+  config.vm.box = "ubuntu/jammy64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -68,6 +68,13 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
   # Port forwading from the Vagrant VM to the host machine
-  config.vm.network "forwarded_port", guest: 5000, host: 5001
-  config.vm.network "forwarded_port", guest: 3000, host: 3001
+
+  config.ssh.insert_key = false
+  config.vm.boot_timeout = 600
+  config.vm.provision "ansible" do |ansible|
+    ansible.verbose ="vv"
+    ansible.playbook = "playbook.yml"
+    
+  end
+
 end

@@ -1,12 +1,12 @@
 ---
-- name: 
+- name: Deploy Docker Containers
   hosts: all
   become: yes
   vars:
     repo_url: https://github.com/rabiot125/yolo.git
     user: ubuntu
     dest: /home/{{ user }}/yolo
-    docker-images:
+    docker_images:
        - name: backend
          path: "{{dest}}/backend"
          port: 5000:5000
@@ -16,49 +16,46 @@
          port: 3000:3000
   
 
-
   tasks:
-    - name: Clone the repository
-      git:
-        repo: "{{ repo_url}}"
-        dest: "{{ dest }}"
-        update: yes
-        force: yes
-        clone: yes
-        accept_hostkey: yes
-        recursive: yes
-        version: master
-
+    - name: Install and upgrade pip
+      become: true
+      apt:
+       name: python3-pip
+       state: present
     - name: Update and upgrade apt packages
       become: true
       apt:
         update_cache: yes
 
     - name: Install prerequisites
-      ansible.builtin.apt:
-        name:
+      apt:
+        pkg:
           - apt-transport-https
           - ca-certificates
           - curl
-          - gnupg-agent
           - software-properties-common
-        
+          - python3-pip
+          - virtualenv
+          - python3-setuptools
+        state: latest
+        update_cache: true
+
+   
 
     - name: Add apt-key
-      ansible.builtin.apt_key:
+      apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
 
     - name: Add docker repo
       ansible.builtin.apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu focal stable
+        repo: deb https://download.docker.com/linux/ubuntu jammy64
 
     - name: Install docker
-      ansible.builtin.apt:
+      apt:
         name:
           - docker-ce
           - docker-ce-cli
           - containerd.io
-          - docker-compose
         update_cache: true
 
     - name: Add user vagrant to group docker
@@ -68,24 +65,15 @@
         append: true
         
 
-    - name: Install Dependecies
-     
-      apt:
-        name: python3-pip
-        state: present
-
     - name: Install Docker Python SDK
      
       pip:
-        name: docker==6.1.3
+        name: docker
         state: present
 
-  roles:
-    - role: build-backend
-      vars:
-         dockerfile_path: "{{dest}}/backend"
+   
 
-    
-    - role: build-client
-      vars:
-         dockckerfile_path: "{{dest}}/client"
+  roles:
+    -  clone-repo
+    -  docker-containers
+      
