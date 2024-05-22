@@ -16,64 +16,9 @@
          port: 3000:3000
   
 
-  tasks:
-    - name: Install and upgrade pip
-      become: true
-      apt:
-       name: python3-pip
-       state: present
-    - name: Update and upgrade apt packages
-      become: true
-      apt:
-        update_cache: yes
-
-    - name: Install prerequisites
-      apt:
-        pkg:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - software-properties-common
-          - python3-pip
-          - virtualenv
-          - python3-setuptools
-        state: latest
-        update_cache: true
-
-   
-
-    - name: Add apt-key
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-
-    - name: Add docker repo
-      ansible.builtin.apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu jammy64
-
-    - name: Install docker
-      apt:
-        name:
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io
-        update_cache: true
-
-    - name: Add user vagrant to group docker
-      ansible.builtin.user:
-        name: vagrant
-        groups: docker
-        append: true
-        
-
-    - name: Install Docker Python SDK
-     
-      pip:
-        name: docker
-        state: present
-
-   
-
   roles:
-    -  clone-repo
-    -  docker-containers
+    - update-server
+    - install-docker
+    - clone-repo
+    - docker-containers
       
