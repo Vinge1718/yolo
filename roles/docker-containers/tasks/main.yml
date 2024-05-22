@@ -3,7 +3,6 @@
 
 - name: Run docker compose
   community.docker.docker_compose:
-    project_src: /home/ubuntu/yolo/
+    project_src: /home/ubuntu/yolo
     files:
-     -"/home/ubuntu/yolo/docker-compose.yml""
-    state: present
+     - docker-compose.yml

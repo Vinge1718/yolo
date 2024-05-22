@@ -1,7 +1,7 @@
 ---
 - name: Deploy Docker Containers
   hosts: all
-  become: yes
+  become: true
   vars:
     repo_url: https://github.com/rabiot125/yolo.git
     user: ubuntu
@@ -17,8 +17,10 @@
   
 
   roles:
+
     - update-server
     - install-docker
     - clone-repo
     - docker-containers
+    
       
