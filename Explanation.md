@@ -31,3 +31,30 @@ Additionally, the client and backend services use bind mounts (volumes) to mount
 ![alt text](image.png)
 
 ![alt text](image-1.png)
+
+
+
+# Terraform
+
+## Task 1: Initialize Terraform
+```yaml
+
+   terraform init
+```
+
+The shell module runs terraform init to initialize a Terraform working directory
+
+## Task 2: Apply Terraform
+```yaml
+terraform plan
+ terraform apply -auto-approve
+  
+```
+
+### Roles on playbook.yml
+ *Testing connectivity*
+ *updating the server*
+ *installing docker and dependencies*
+ *cloning the repo*
+ *running docker compose*
+
