@@ -1,5 +1,5 @@
 ---
-- name: Deploy Docker Containers
+- name: 
   hosts: all
   become: true
   vars:
@@ -7,20 +7,18 @@
     user: ubuntu
     dest: /home/{{ user }}/yolo
     docker_images:
-       - name: backend
-         path: "{{dest}}/backend"
-         port: 5000:5000
-
-       - name: client
-         path: "{{dest}}/client"
-         port: 3000:3000
-  
+      - name: backend
+        path: "{{ dest }}/backend"
+        port: 5000:5000
+      - name: client
+        path: "{{ dest }}/client"
+        port: 3000:3000
 
   roles:
-
+    - test-connectivity
     - update-server
     - install-docker
     - clone-repo
-    - docker-containers
+    - deploy-containers
     
-      
+ 

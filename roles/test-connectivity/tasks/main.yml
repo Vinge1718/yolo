@@ -1,0 +1,4 @@
+---
+# tasks file for test-connectivity
+- name: Test connectivity
+  ping:

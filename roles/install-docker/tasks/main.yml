@@ -1,18 +1,37 @@
 ---
 # tasks file for install-docker and its dependencies
 
+# tasks file for install-dependencies
+- name: Install required system packages
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+    update_cache: true
 
+- name: Add Docker GPG apt Key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
 
-    - name: Install pip3
-      become: true
-      apt:
-        name: python3-pip
-        state: present
+- name: Add Docker Repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
 
-    - name: Install docker
-      become: true
-      pip:
-        name: docker==6.1.3
-        state: present
-   
+- name: Update apt and install docker-ce
+  become: true
+  apt:
+    name: docker-ce
+    update_cache: true
+
+- name: Install Docker Module for Python
+  pip:
+    name: docker
+
 

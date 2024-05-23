@@ -1,8 +1,0 @@
----
-# tasks file for docker-containers
-
-- name: Run docker compose
-  community.docker.docker_compose:
-    project_src: /home/ubuntu/yolo
-    files:
-     - docker-compose.yml

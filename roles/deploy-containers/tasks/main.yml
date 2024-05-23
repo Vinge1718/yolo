@@ -1,0 +1,15 @@
+---
+# tasks file for deploy-containers
+- name: Install pip dependencies
+  ansible.builtin.pip:
+    name:
+      - docker<7
+      - docker-compose
+      
+- name: Deploy Containers
+  docker_compose:
+    project_src: /home/ubuntu/yolo/
+    files:
+      - "/home/ubuntu/yolo/docker-compose.yml"
+    state: present
+
