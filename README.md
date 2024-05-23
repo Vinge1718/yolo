@@ -38,3 +38,27 @@ Make sure that you have the following installed:
   ## sample fronted image
 
    ![alt text](image-2.png)
+
+
+## Running with Ansible
+
+If you have Ansible installed, you can use it to automate the deployment of the application. Here's a basic example of how you might do this:
+
+1. First, install Ansible , Vagrant, Virtual Box and terraform on your local machine. You can do this with the following command:
+
+```bash
+sudo apt-get update
+sudo apt-get install ansible vagrant virtualbox
+```
+
+
+2. Run the playbook with the following command:
+  
+```bash
+vagrant up 
+```
+3. To run with terraform :
+```bash
+terraform init
+terraform plan 
+```
