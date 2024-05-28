@@ -1,1 +1,13 @@
+---
+# tasks file for git-deploy
+    - name: Clone application code from GitHub
+      git:
+        repo: https://github.com/IvyMachogu/yolo.git
+        dest: /development/yolo
+        version: master
 
+    - name: Include role to set up Docker containers
+      include_role:
+         name: setup-docker-containers
+      vars:
+        roles_path: /home/ivy/development/yolo/roles
