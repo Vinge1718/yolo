@@ -1,0 +1,20 @@
+{
+  "name": "yolo-Microservice",
+  "version": "1.0.0",
+  "description": "Make sure that you have the following installed: - [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04)  - npm  - [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) and start the mongodb service with `sudo service mongod start`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maubinyaachi/yolo-Microservice.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maubinyaachi/yolo-Microservice/issues"
+  },
+  "homepage": "https://github.com/Maubinyaachi/yolo-Microservice#readme"
+}
