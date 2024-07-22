@@ -11,24 +11,24 @@ version: "3.8"
 services:
 
   #Builds the frontend Docker image and creates the frontend microservice
-  brian-yolo-client:
-    image: brianbwire/brian-yolo-client:v1.0.0
+  calnexus-yolo-client:
+    image: calnexus/calnexus-yolo-client:v1.0.0
     build: ./client
-    container_name: brian-yolo-client
+    container_name: calnexus-yolo-client
     stdin_open: true
     tty: true
     ports:
       - "3000:3000"
     depends_on: 
-      - brian-yolo-backend
+      - calnexus-yolo-backend
     networks:
       - app-net
 
   #Builds the backend Docker image and creates the backend microservice
-  brian-yolo-backend:
-    image: brianbwire/brian-yolo-backend:v1.0.0
+  calnexus-yolo-backend:
+    image: calnexus/calnexus-yolo-backend:v1.0.0
     build: ./backend
-    container_name: brian-yolo-backend
+    container_name: calnexus-yolo-backend
     stdin_open: true
     tty: true
     restart: always
