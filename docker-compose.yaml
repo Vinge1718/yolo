@@ -1,47 +1,47 @@
-#This file builds the Docker images for a React/NodeJS application and runs it as microservices on Docker containers
-
-#To ensure successful execution, clone this entire repository and execute this file while in the root folder of the cloned repository
-
-#It's also a requirement to have Docker and the docker-compose plugin installed in your environment
-
-#To launch this app without having to clone the entire repository,use the docker-compose.yaml file to run the app
+# This file builds the Docker images for a React/NodeJS application and runs it as microservices on Docker containers
+# To ensure successful execution, clone this entire repository and execute this file while in the root folder of the cloned repository
+# It's also a requirement to have Docker and the docker-compose plugin installed in your environment
+# To launch this app without having to clone the entire repository, use the docker-compose.yaml file to run the app
 
 version: "3.8"
 
 services:
-
-  #Builds the frontend Docker image and creates the frontend microservice
+  # Builds the frontend Docker image and creates the frontend microservice
   calnexus-yolo-client:
     image: calnexus/calnexus-yolo-client:v1.0.0
-    build: ./client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
     container_name: calnexus-yolo-client
     stdin_open: true
     tty: true
     ports:
       - "3000:3000"
-    depends_on: 
+    depends_on:
       - calnexus-yolo-backend
     networks:
       - app-net
 
-  #Builds the backend Docker image and creates the backend microservice
+  # Builds the backend Docker image and creates the backend microservice
   calnexus-yolo-backend:
     image: calnexus/calnexus-yolo-backend:v1.0.0
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: calnexus-yolo-backend
     stdin_open: true
     tty: true
     restart: always
     ports:
       - "5000:5000"
-    depends_on: 
+    depends_on:
       - app-ip-mongo
     networks:
       - app-net
 
-  #Creates the database microservice
+  # Creates the database microservice
   app-ip-mongo:
-    image: mongo
+    image: mongo:4.4.3
     container_name: app-mongo
     ports:
       - "27017:27017"
@@ -52,7 +52,7 @@ services:
         source: app-mongo-data
         target: /data/db
 
-#Creates the network infrastructure necessary for the containers to communicate with each other
+# Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
   app-net:
     name: app-net
@@ -60,10 +60,10 @@ networks:
     attachable: true
     ipam:
       config:
-        - subnet: 172.20.0.0/16 
-          ip_range: 172.20.0.0/16 
+        - subnet: 172.20.0.0/16
+          ip_range: 172.20.0.0/16
 
-#Creates a Docker volume that persists all the data stored in the database
+# Creates a Docker volume that persists all the data stored in the database
 volumes:
   app-mongo-data:
     driver: local

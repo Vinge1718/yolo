@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: brianbwire/brian-yolo-backend:v1.0.0
+          image: calnexus/cal-yolo-backend:v1.0.0
           command: ["npm", "start"] 
           ports:
             - containerPort: 5000
