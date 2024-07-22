@@ -1,26 +1,64 @@
+version: "3.8"
+
 services:
-  client:
-    build: ./client
+  # Builds the frontend Docker image and creates the frontend microservice
+  calnexus-yolo-client:
+    image: calnexus/calnexus-yolo-client:v1.0.0
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: calnexus-yolo-client
+    stdin_open: true
+    tty: true
     ports:
       - "3000:3000"
-    depends_on:
-      - backend
+    depends_on: 
+      - calnexus-yolo-backend
+    networks:
+      - app-net
 
-  backend:
-    build: ./backend
+  # Builds the backend Docker image and creates the backend microservice
+  calnexus-yolo-backend:
+    image: calnexus/calnexus-yolo-backend:v1.0.0
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: calnexus-yolo-backend
+    stdin_open: true
+    tty: true
+    restart: always
     ports:
       - "5000:5000"
-    depends_on:
-      - mongo
+    depends_on: 
+      - app-ip-mongo
+    networks:
+      - app-net
     environment:
-      MONGO_URL: mongodb://mongo:27017/mydatabase
+      - MONGODB_URI=mongodb://app-ip-mongo:27017/yolomy
 
-  mongo:
-    image: mongo:4.4
+  # Creates the database microservice
+  app-ip-mongo:
+    image: mongo:4.4.3
+    container_name: app-mongo
     ports:
       - "27017:27017"
+    networks:
+      - app-net
     volumes:
-      - mongo-data:/data/db
+      - app-mongo-data:/data/db
 
+# Creates the network infrastructure necessary for the containers to communicate with each other
+networks:
+  app-net:
+    name: app-net
+    driver: bridge
+    attachable: true
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16 
+          ip_range: 172.20.0.0/16 
+
+# Creates a Docker volume that persists all the data stored in the database
 volumes:
-  mongo-data:
+  app-mongo-data:
+    driver: local
