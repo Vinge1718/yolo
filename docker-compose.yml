@@ -5,14 +5,14 @@ services:
   calnexus-yolo-client:
     image: unitybi/yolo:client-v1.0.0
     build:
-      context: /home/calnexus/Desktop/yolo/images/client
+      context: ./client
       dockerfile: Dockerfile
     container_name: calnexus-yolo-client
     stdin_open: true
     tty: true
     ports:
       - "3000:3000"
-    depends_on: 
+    depends_on:
       - calnexus-yolo-backend
     networks:
       - app-net
@@ -21,7 +21,7 @@ services:
   calnexus-yolo-backend:
     image: unitybi/yolo:backend-v1.0.0
     build:
-      context: /home/calnexus/Desktop/yolo/images/backend
+      context: ./backend
       dockerfile: Dockerfile
     container_name: calnexus-yolo-backend
     stdin_open: true
@@ -29,7 +29,7 @@ services:
     restart: always
     ports:
       - "5000:5000"
-    depends_on: 
+    depends_on:
       - app-ip-mongo
     networks:
       - app-net
