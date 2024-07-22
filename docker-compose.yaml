@@ -1,8 +1,3 @@
-# This file builds the Docker images for a React/NodeJS application and runs it as microservices on Docker containers
-# To ensure successful execution, clone this entire repository and execute this file while in the root folder of the cloned repository
-# It's also a requirement to have Docker and the docker-compose plugin installed in your environment
-# To launch this app without having to clone the entire repository, use the docker-compose.yaml file to run the app
-
 version: "3.8"
 
 services:
@@ -17,7 +12,7 @@ services:
     tty: true
     ports:
       - "3000:3000"
-    depends_on:
+    depends_on: 
       - calnexus-yolo-backend
     networks:
       - app-net
@@ -34,10 +29,12 @@ services:
     restart: always
     ports:
       - "5000:5000"
-    depends_on:
+    depends_on: 
       - app-ip-mongo
     networks:
       - app-net
+    environment:
+      - MONGODB_URI=mongodb://app-ip-mongo:27017/yolomy
 
   # Creates the database microservice
   app-ip-mongo:
@@ -48,9 +45,7 @@ services:
     networks:
       - app-net
     volumes:
-      - type: volume
-        source: app-mongo-data
-        target: /data/db
+      - app-mongo-data:/data/db
 
 # Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
@@ -60,8 +55,8 @@ networks:
     attachable: true
     ipam:
       config:
-        - subnet: 172.20.0.0/16
-          ip_range: 172.20.0.0/16
+        - subnet: 172.20.0.0/16 
+          ip_range: 172.20.0.0/16 
 
 # Creates a Docker volume that persists all the data stored in the database
 volumes:
