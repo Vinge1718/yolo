@@ -62,3 +62,30 @@
 ![Screenshot 2](screenshots/2.png)
 ![Screenshot 3](screenshots/3.png)
 
+
+## Process to Build and Deploy Images
+
+1. **Build the Images:**
+   - Ensure Docker is installed and running.
+   - Navigate to the project directory and run `sudo docker-compose build` to build the images locally.
+
+2. **Run the Containers Locally:**
+   - Use `sudo docker-compose up -d` to start the containers in detached mode.
+   - Verify the running containers with `sudo docker ps`.
+
+3. **Tag the Images for Docker Hub:**
+   - Tag the images using:
+     ```bash
+     sudo docker tag calnexus-yolo-client:v1.0.0 unitybi/yolo:client-v1.0.0
+     sudo docker tag calnexus-yolo-backend:v1.0.0 unitybi/yolo:backend-v1.0.0
+     ```
+
+4. **Push the Images to Docker Hub:**
+   - Log in to Docker Hub using `sudo docker login`.
+   - Push the images:
+     ```bash
+     sudo docker push unitybi/yolo:client-v1.0.0
+     sudo docker push unitybi/yolo:backend-v1.0.0
+     ```
+
+By following these steps, the images were built locally, run to verify functionality, tagged appropriately, and pushed to Docker Hub for deployment.
