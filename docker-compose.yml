@@ -1,11 +1,11 @@
-version: "3.8"
+version: "3.9"
 
 services:
   # Builds the frontend Docker image and creates the frontend microservice
   calnexus-yolo-client:
     image: unitybi/yolo:client-v1.0.0
     build:
-      context: ~/Desktop/yolo/images/client
+      context: /home/calnexus/Desktop/yolo/images/client
       dockerfile: Dockerfile
     container_name: calnexus-yolo-client
     stdin_open: true
@@ -21,7 +21,7 @@ services:
   calnexus-yolo-backend:
     image: unitybi/yolo:backend-v1.0.0
     build:
-      context: ~/Desktop/yolo/images/backend
+      context: /home/calnexus/Desktop/yolo/images/backend
       dockerfile: Dockerfile
     container_name: calnexus-yolo-backend
     stdin_open: true
