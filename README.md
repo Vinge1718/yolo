@@ -1,23 +1,15 @@
+# Overview
+This project involved the containerization and deployment of a full-stack yolo application using Docker.
+
+
 # Requirements
-Make sure that you have the following installed:
-- [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04) 
-- npm 
-- [MongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/) and start the mongodb service with `sudo service mongod start`
+Install the docker engine here:
+- [Docker](https://docs.docker.com/engine/install/) 
 
-## Navigate to the Client Folder 
- `cd client`
+## How to launch the application 
 
-## Run the folllowing command to install the dependencies 
- `npm install`
 
-## Run the folllowing to start the app
- `npm start`
+![Alt text](image.png)
 
-## Open a new terminal and run the same commands in the backend folder
- `cd ../backend`
-
- `npm install`
-
- `npm start`
-
- ### Go ahead a nd add a product (note that the price field only takes a numeric input)
+## How to run the app
+Use vagrant up --provison command
