@@ -11,27 +11,29 @@ version: "3.8"
 services:
 
   #Builds the frontend Docker image and creates the frontend microservice
-  brian-yolo-client:
-    image: brianbwire/brian-yolo-client:v1.0.0
+  yolo-client:
+    image: thalma/yolo-client:v1.0.2
     build: ./client
-    container_name: brian-yolo-client
+    container_name: yolo-client
     stdin_open: true
     tty: true
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on: 
-      - brian-yolo-backend
+      - yolo-backend
     networks:
       - app-net
 
   #Builds the backend Docker image and creates the backend microservice
-  brian-yolo-backend:
-    image: brianbwire/brian-yolo-backend:v1.0.0
+  yolo-backend:
+    image: thalma/yolo-backend:v1.0.2
     build: ./backend
-    container_name: brian-yolo-backend
+    container_name: yolo-backend
     stdin_open: true
     tty: true
     restart: always
+    environment:
+      - MONGODB_URI=mongodb://app-ip-mongo:27017/yolomy
     ports:
       - "5000:5000"
     depends_on: 

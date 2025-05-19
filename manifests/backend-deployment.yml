@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yolo-backend
+  template:
+    metadata:
+      labels:
+        app: yolo-backend
+        
+    spec:
+      containers:
+        - name: yolo-backend
+          image: thalma/yolo-backend:v1.0.2
+          ports:
+            - containerPort: 5000
+          env:
+            - name: MONGODB_URI
+              value: "mongodb://mongo:27017/yolomy"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yolo-backend
+spec:
+  selector:
+    app: yolo-backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: LoadBalancer  

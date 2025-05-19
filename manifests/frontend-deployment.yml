@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yolo-client
+  labels:
+    app: yolo-client
+    tier: frontend
+    environment: dev
+  annotations:
+    author: "Thalma Simiyu"
+    description: "Yolo frontend client deployment"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yolo-client
+  template:
+    metadata:
+      labels:
+        app: yolo-client
+        tier: frontend
+        environment: dev
+    spec:
+      containers:
+        - name: yolo-client
+          image: thalma/yolo-client:v1.0.2
+          # Replace this with your app's real start command
+          command: ["npm", "start"]
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: yolo-client
+spec:
+  selector:
+    app: yolo-client
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer

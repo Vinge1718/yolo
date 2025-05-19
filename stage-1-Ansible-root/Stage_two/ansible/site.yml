@@ -1,0 +1,9 @@
+---
+- name: Provision YOLO app using roles
+  hosts: localhost
+  become: true
+
+  roles:
+    - role: setup-mongodb
+    - role: backend-deployment
+    - role: frontend-deployment
