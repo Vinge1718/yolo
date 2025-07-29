@@ -87,6 +87,23 @@ ansible-playbook /vagrant/playbook.yml
 - http://192.168.56.10:PORT
 
 
+# 🚀 Stage Two – DevOps Project Deployment (Terraform + Docker)
+
+## 📌 Overview
+
+This document outlines the **Stage Two** implementation of the DevOps project. In this stage, we added infrastructure provisioning using **Terraform**, integrated it with Docker containers, and ensured clean DevOps practices such as modular code, parameterization, and Git versioning via a second branch.
+
+---
+
+## 🛠️ Branching Strategy
+
+To separate Stage One from Stage Two, a new Git branch was created:
+
+```bash
+git checkout -b stage_two
+
+
+
 
 
 
