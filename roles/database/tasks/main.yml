@@ -1,0 +1,7 @@
+- name: Launch MongoDB container
+  docker_container:
+    name: "{{ mongodb_container_name }}"
+    image: mongo
+    state: started
+    ports:
+      - "{{ mongodb_port }}:27017"

@@ -1,0 +1,10 @@
+- name: Install base dependencies
+  apt:
+    name: ['git', 'curl']
+    update_cache: yes
+
+- name: Clone application repo
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_directory }}"
+    force: yes

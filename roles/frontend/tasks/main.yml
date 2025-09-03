@@ -1,0 +1,14 @@
+- name: Build frontend image
+  docker_image:
+    build:
+      path: "{{ app_directory }}/frontend"
+    name: "{{ frontend_image }}"
+
+- name: Start frontend container
+  docker_container:
+    name: "{{ frontend_container_name }}"
+    image: "{{ frontend_image }}"
+    ports:
+      - "{{ frontend_port }}:3000"
+    networks:
+      - name: yolo_net

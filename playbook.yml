@@ -1,9 +1,21 @@
----
-- name: Ansible playbook to dockerize and run yolo e-commerce app using ansible
-  hosts: all
+- name: Deploy Khalifa E-Commerce App
+  hosts: webservers
   become: true
-  roles: 
-    - frontend-deployment
-    - setup-mongodb   
-    - backend-deployment
-    
+  vars_files:
+    - group_vars/all.yml
+
+  roles:
+    - { role: common, tags: ['setup', 'repo'] }
+    - { role: docker, tags: ['docker'] }
+    - { role: database, tags: ['mongo'] }
+    - { role: backend, tags: ['backend'] }
+    - { role: frontend, tags: ['frontend'] }
+
+  post_tasks:
+    - name: Verify container status
+      shell: docker ps
+      register: container_status
+
+    - name: Show container status
+      debug:
+        var: container_status.stdout_lines

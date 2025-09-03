@@ -1,0 +1,16 @@
+- name: Build backend image
+  docker_image:
+    build:
+      path: "{{ app_directory }}/backend"
+    name: "{{ backend_image }}"
+
+- name: Start backend container
+  docker_container:
+    name: "{{ backend_container_name }}"
+    image: "{{ backend_image }}"
+    ports:
+      - "{{ backend_port }}:5000"
+    env:
+      MONGO_URL: "mongodb://{{ mongodb_container_name }}:27017"
+    networks:
+      - name: yolo_net

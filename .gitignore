@@ -7,3 +7,7 @@ vault.yml
 .vscode
 .vscode/*
 .vscode/*.json
+*.retry
+*.log
+*.backup
+__pycache__/
