@@ -1,0 +1,48 @@
+services:
+  mongo:
+    image: mongo:4.2
+    container_name: mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-net
+    ports:
+      - "27017:27017"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: brianbwire/yolo-backend:v1.0.0
+    container_name: brian-yolo-backend
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/yolomy
+    depends_on:
+      - mongo
+    networks:
+      - app-net
+    ports:
+      - "5000:5000"
+    restart: always
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    image: brianbwire/yolo-client:v1.0.0
+    container_name: brian-yolo-client
+    depends_on:
+      - backend
+    networks:
+      - app-net
+    ports:
+      - "3000:3000"
+    restart: always
+
+volumes:
+  mongo-data:
+
+networks:
+  app-net:
+    driver: bridge
