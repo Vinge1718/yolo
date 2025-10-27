@@ -1,0 +1,26 @@
+---
+- name: Ensure backend directory exists
+  file:
+    path: "{{ backend_dir }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+
+- name: Pull backend image from Docker Hub
+  docker_image:
+    name: "{{ backend_image }}"
+    source: pull
+  become: yes
+
+- name: Run backend container
+  docker_container:
+    name: "{{ backend_container_name }}"
+    image: "{{ backend_image }}"
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ backend_networks[0] }}"
+      - name: "{{ backend_networks[1] }}"
+    env: "{{ backend_env }}"
+    ports:
+      - "{{ backend_port }}:{{ backend_port }}"
+  become: yes

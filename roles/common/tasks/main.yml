@@ -1,0 +1,59 @@
+---
+- name: Update cache
+  apt:
+    update_cache: yes
+
+- name: Install system packages
+  apt:
+    name:
+      - git
+      - curl
+      - docker-compose
+    state: present
+
+- name: Always Run Docker file
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: create app dir
+  file:
+    path: "{{ app_base_dir }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: "0755"
+
+- name: Add vagrant user to docker group
+  user:
+    name: vagrant
+    groups: docker
+    append: yes
+
+
+- name: Clone application repo
+  git:
+    repo: "{{ repo_url }}"
+    dest: "{{ app_base_dir }}/src"
+    version: HEAD
+    force: yes
+  become: true
+
+- name: Create Docker networks
+  become: yes
+  block:
+    - name: Create backend-db-net
+      docker_network:
+        name: backend-db-net
+        driver: bridge
+        state: present
+
+    - name: Create frontend-backend-net
+      docker_network:
+        name: frontend-backend-net
+        driver: bridge
+        state: present
+
+
+

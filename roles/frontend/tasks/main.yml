@@ -1,0 +1,18 @@
+---
+- name: Pull frontend image from dockerhub
+  docker_image:
+    name: "{{ frontend_image }}"
+    source: pull
+  become: yes
+
+- name: Run frontend container
+  docker_container:
+    name: "{{ frontend_container_name }}"
+    image: "{{ frontend_image }}"
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ frontend_network }}"
+    env: "{{ frontend_env }}"
+    ports:
+      - "{{ frontend_port }}:80"
+  become: yes

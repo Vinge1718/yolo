@@ -1,69 +1,99 @@
-#This file builds the Docker images for a React/NodeJS application and runs it as microservices on Docker containers
+  services:
+    # DATABASE Container
+    pmc-yolo-database:
+      build:
+        context: ./database          
+        dockerfile: Dockerfile
+        args:
+          buildversion: 1.0.0     
+      image: pmcmuchiri/pmc-yolo-database:v1.0.0 #tag the image to push to docker hub
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+        MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+        MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      container_name: pmc-yolo-database
+      
+      ports:
+        - "27017:27017"
+      volumes:
+        - mongo-database:/data/db
+      env_file:
+        - .env
+      
+      networks:
+        - backend-db-net
 
-#To ensure successful execution, clone this entire repository and execute this file while in the root folder of the cloned repository
+      healthcheck:
+        test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+        interval: 10s
+        retries: 5
 
-#It's also a requirement to have Docker and the docker-compose plugin installed in your environment
+    # BACKEND Container
+    pmc-yolo-backend:
+      image: pmcmuchiri/pmc-yolo-backend:v1.0.0
+      build: 
+        context: ./backend
+        dockerfile: Dockerfile
+        args:
+          buildversion: v1.0.0
 
-#To launch this app without having to clone the entire repository,use the docker-compose.yaml file to run the app
+      # interactive mode like docker run -it
+      stdin_open: true
+      tty: true
+      restart: always
+      container_name: pmc-yolo-backend
+      env_file:
+        - .env                
 
-version: "3.8"
+      depends_on:             
+        - pmc-yolo-database
+      ports:
+        - "5000:5000"
+      networks:
+        - backend-db-net
+        - frontend-backend-net
 
-services:
+      volumes:
+        - backend-logs:/usr/src/app/logs 
 
-  #Builds the frontend Docker image and creates the frontend microservice
-  brian-yolo-client:
-    image: brianbwire/brian-yolo-client:v1.0.0
-    build: ./client
-    container_name: brian-yolo-client
-    stdin_open: true
-    tty: true
-    ports:
-      - "3000:3000"
-    depends_on: 
-      - brian-yolo-backend
-    networks:
-      - app-net
+    # FRONTEND Container
+    pmc-yolo-client:
+      image: pmcmuchiri/pmc-yolo-client:v1.0.0
+      build: 
+        context: ./client
+        dockerfile: Dockerfile
+        args:
+          buildversion: v1.0.0
 
-  #Builds the backend Docker image and creates the backend microservice
-  brian-yolo-backend:
-    image: brianbwire/brian-yolo-backend:v1.0.0
-    build: ./backend
-    container_name: brian-yolo-backend
-    stdin_open: true
-    tty: true
-    restart: always
-    ports:
-      - "5000:5000"
-    depends_on: 
-      - app-ip-mongo
-    networks:
-      - app-net
+      # interactive mode like docker run -it
+      stdin_open: true
+      tty: true
+      restart: always
+      container_name: pmc-yolo-client
+      depends_on:             
+        pmc-yolo-database:
+          condition: service_healthy
+      ports:
+        - "8080:80"
+      networks:
+        - frontend-backend-net
+      
+      volumes:
+        - client-logs:/usr/src/app/logs
 
-  #Creates the database microservice
-  app-ip-mongo:
-    image: mongo
-    container_name: app-mongo
-    ports:
-      - "27017:27017"
-    networks:
-      - app-net
-    volumes:
-      - type: volume
-        source: app-mongo-data
-        target: /data/db
 
-#Creates the network infrastructure necessary for the containers to communicate with each other
-networks:
-  app-net:
-    name: app-net
-    driver: bridge
-    attachable: true
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16 
-          ip_range: 172.20.0.0/16 
+  volumes:
+    mongo-database:
+      driver: local
+    client-logs:
+      driver: local
+    backend-logs:
+      driver: local
 
-#Creates a Docker volume that persists all the data stored in the database
-volumes:
-  app-mongo-data:
-    driver: local
+  networks:
+    backend-db-net:
+      driver: bridge
+    frontend-backend-net:
+      driver: bridge
+

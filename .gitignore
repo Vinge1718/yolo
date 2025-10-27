@@ -7,3 +7,4 @@ vault.yml
 .vscode
 .vscode/*
 .vscode/*.json
+.env

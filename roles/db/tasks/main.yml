@@ -1,0 +1,33 @@
+---
+- name: Ensure database directory exists
+  file:
+    path: "{{ db_dir }}"
+    state: directory
+    owner: vagrant
+    group: vagrant
+
+- name: Pull MongoDB image from Docker Hub
+  docker_image:
+    name: "{{ db_image }}"
+    source: pull
+  become: yes
+
+- name: Ensure MongoDB data volume exists
+  docker_volume:
+    name: "{{ db_volume }}"
+    state: present
+  become: yes
+
+- name: Run MongoDB container
+  docker_container:
+    name: "{{ db_container_name }}"
+    image: "{{ db_image }}"
+    restart_policy: unless-stopped
+    networks:
+      - name: "{{ db_network }}"
+    env: "{{ db_env }}"
+    ports:
+      - "{{ db_port }}:{{ db_port }}"
+    volumes:
+      - "{{ db_volume }}:/data/db"
+  become: yes

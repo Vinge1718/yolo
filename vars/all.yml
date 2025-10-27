@@ -1,0 +1,36 @@
+# General settings
+repo_url: https://github.com/pmc-muchiri/yolo.git
+app_base_dir: /opt/yolo
+
+# Frontend configuration
+frontend_dir: "{{ app_base_dir }}/frontend"
+frontend_image: pmcmuchiri/pmc-yolo-client:v1.0.1
+frontend_container_name: pmc-yolo-frontend
+frontend_network: frontend-backend-net
+frontend_port: 80
+frontend_env:
+  NODE_ENV: production
+
+# Backend configuration
+backend_dir: "{{ app_base_dir }}/backend"
+backend_image: pmcmuchiri/pmc-yolo-backend:v1.0.1
+backend_container_name: pmc-yolo-backend
+backend_networks:
+  - backend-db-net
+  - frontend-backend-net
+backend_port: 5000
+backend_env:
+  PORT: "5000"
+  MONGODB_URI: "mongodb://root:pmc123@pmc-yolo-database:27017"
+  NODE_ENV: production
+
+# Database configuration
+db_dir: "{{ app_base_dir }}/db"
+db_image: pmcmuchiri/pmc-yolo-database:v1.0.1
+db_container_name: pmc-yolo-database
+db_network: backend-db-net
+db_port: 27017
+db_volume: mongo_data
+db_env:
+  MONGO_INITDB_ROOT_USERNAME: root
+  MONGO_INITDB_ROOT_PASSWORD: pmc123
