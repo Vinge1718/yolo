@@ -13,63 +13,15 @@ import EditProductForm from './EditProductForm';
 // import tshirt_ladies from '../images/products/tshirt_ladies.png';
 // import Default_image from '../images/product_image.jpeg'
 
-// const actualProductList = [
-//     {
-//         name: 'T-Shirt',
-//         price: '599',
-//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at arcu rutrum dolor pellentesque interdum ac id nunc. Ut nunc nunc, mollis vel auctor at, convallis et dolor. Donec felis nisl, ultricies ac lorem mollis, tempus maximus dolor. Maecenas mollis felis nec vulputate faucibus. Curabitur eleifend, felis sit amet fermentum sodales, dolor tellus feugiat turpis, vel placerat justo est luctus dui. Etiam vitae vulputate neque. Etiam tristique interdum laoreet. Pellentesque tincidunt nisi eu eros porta efficitur. Pellentesque sit amet lacus ut libero aliquet pellentesque quis a urna. Duis rutrum odio id sapien aliquet, auctor mattis augue facilisis.',
-//         photo: tshirt,
-//         quantity: 40,
-//         id: "1"
-//     },
-//     {
-//         name: 'BackPack', 
-//         price: '1500',
-//         quantity: 20,
-//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at arcu rutrum dolor pellentesque interdum ac id nunc. Ut nunc nunc, mollis vel auctor at, convallis et dolor. Donec felis nisl, ultricies ac lorem mollis, tempus maximus dolor. Maecenas mollis felis nec vulputate faucibus. Curabitur eleifend, felis sit amet fermentum sodales, dolor tellus feugiat turpis, vel placerat justo est luctus dui. Etiam vitae vulputate neque. Etiam tristique interdum laoreet. Pellentesque tincidunt nisi eu eros porta efficitur. Pellentesque sit amet lacus ut libero aliquet pellentesque quis a urna. Duis rutrum odio id sapien aliquet, auctor mattis augue facilisis.',
-//         photo: backpack,
-//         id: "2"
-//     },
-//     {
-//         name: 'Pants', 
-//         price: '1000',
-//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at arcu rutrum dolor pellentesque interdum ac id nunc. Ut nunc nunc, mollis vel auctor at, convallis et dolor. Donec felis nisl, ultricies ac lorem mollis, tempus maximus dolor. Maecenas mollis felis nec vulputate faucibus. Curabitur eleifend, felis sit amet fermentum sodales, dolor tellus feugiat turpis, vel placerat justo est luctus dui. Etiam vitae vulputate neque. Etiam tristique interdum laoreet. Pellentesque tincidunt nisi eu eros porta efficitur. Pellentesque sit amet lacus ut libero aliquet pellentesque quis a urna. Duis rutrum odio id sapien aliquet, auctor mattis augue facilisis.',
-//         quantity: 15,
-//         photo: pants,
-//         id: '3'
-//     },
-//     {
-//         name: 'Trekking Shoes',
-//         price: '2000',
-//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at arcu rutrum dolor pellentesque interdum ac id nunc. Ut nunc nunc, mollis vel auctor at, convallis et dolor. Donec felis nisl, ultricies ac lorem mollis, tempus maximus dolor. Maecenas mollis felis nec vulputate faucibus. Curabitur eleifend, felis sit amet fermentum sodales, dolor tellus feugiat turpis, vel placerat justo est luctus dui. Etiam vitae vulputate neque. Etiam tristique interdum laoreet. Pellentesque tincidunt nisi eu eros porta efficitur. Pellentesque sit amet lacus ut libero aliquet pellentesque quis a urna. Duis rutrum odio id sapien aliquet, auctor mattis augue facilisis.',
-//         quantity: 10,
-//         photo: trekkingshoes,
-//         id: '4'
-//     },
-//     {
-//         name: 'Jacket',
-//         price: '1500',
-//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at arcu rutrum dolor pellentesque interdum ac id nunc. Ut nunc nunc, mollis vel auctor at, convallis et dolor. Donec felis nisl, ultricies ac lorem mollis, tempus maximus dolor. Maecenas mollis felis nec vulputate faucibus. Curabitur eleifend, felis sit amet fermentum sodales, dolor tellus feugiat turpis, vel placerat justo est luctus dui. Etiam vitae vulputate neque. Etiam tristique interdum laoreet. Pellentesque tincidunt nisi eu eros porta efficitur. Pellentesque sit amet lacus ut libero aliquet pellentesque quis a urna. Duis rutrum odio id sapien aliquet, auctor mattis augue facilisis.',
-//         quantity: 5,
-//         photo: giacket,
-//         id: '5'
-//     },
-//     {
-//         name:'T-Shirt Ladies',
-//         price: '650',
-//         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at arcu rutrum dolor pellentesque interdum ac id nunc. Ut nunc nunc, mollis vel auctor at, convallis et dolor. Donec felis nisl, ultricies ac lorem mollis, tempus maximus dolor. Maecenas mollis felis nec vulputate faucibus. Curabitur eleifend, felis sit amet fermentum sodales, dolor tellus feugiat turpis, vel placerat justo est luctus dui. Etiam vitae vulputate neque. Etiam tristique interdum laoreet. Pellentesque tincidunt nisi eu eros porta efficitur. Pellentesque sit amet lacus ut libero aliquet pellentesque quis a urna. Duis rutrum odio id sapien aliquet, auctor mattis augue facilisis.',
-//         quantity: 50,
-//         photo: tshirt_ladies,
-//         id: '6'
-//     }
-// ]
+// const actualProductList = [...]  // (Keep if needed, but not changed)
+
 class ProductControl extends Component {
     
     constructor(props)  {
         super(props);
         this.state = {
             formVisibleOnPage: false,
-            actualProductList: [],
+            actualProductList: [],  // Already good: Empty array prevents initial map error
             selectedProduct: null,
             editProduct: false,
             uploadPhoto: null
@@ -77,15 +29,26 @@ class ProductControl extends Component {
         };
     }
     
-    componentDidMount(){
-        axios.get('http://localhost:5000/api/products')
-            .then(res =>{
-                console.log(res)
+    // NEW: Separate method to fetch products for reuse (e.g., after add/edit/delete)
+    fetchProducts = () => {
+        axios.get(`${process.env.REACT_APP_API_URL}/api/products`)
+            .then(res => {
+                console.log(res);
+                const products = Array.isArray(res.data) ? res.data : [];
                 this.setState({
-                    actualProductList: res.data
-                })
+                    actualProductList: products
+                });
             })
+            .catch(error => {
+                console.error('Failed to fetch products:', error);
+                this.setState({ actualProductList: [] });
+            });
     }
+
+    componentDidMount(){
+        this.fetchProducts();  // Use the new method
+    }
+    
     handleEditProductClick = () =>{
         console.log('HandleEditClick reached!!')
         console.log(this.state.selectedProduct)
@@ -157,23 +120,34 @@ class ProductControl extends Component {
         //     console.log(pair[0]+ ', ' + pair[1]); 
         // }       
         // console.log(...formData)
-        axios.post('http://localhost:5000/api/products', newProduct)
-            .then(res => console.log(res.data))
-        this.setState({
-            formVisibleOnPage: false
-        })
+        axios.post(`${process.env.REACT_APP_API_URL}/api/products`, newProduct)  
+            .then(res => {
+                console.log(res.data);
+                this.fetchProducts();  // NEW: Re-fetch products after add to update list
+                this.setState({
+                    formVisibleOnPage: false
+                });
+            })
+            .catch(error => {  // NEW: Add error handling for POST
+                console.error('Add product error:', error);
+                alert('Failed to add product: ' + (error.response ? error.response.data.error : 'Network error'));
+            });
     };
     handleDeletingProduct = (id) =>{
-        axios.delete('http://localhost:5000/api/products/'+id)
-            .then(res => console.log(res.data))
-            .catch((error) =>{
-                console.log(error)
+        axios.delete(`${process.env.REACT_APP_API_URL}/api/products/${id}`)  
+            .then(res => {
+                console.log(res.data);
+                this.fetchProducts();  // NEW: Re-fetch after delete to update list
             })
+            .catch((error) =>{
+                console.log(error);
+                alert('Failed to delete product: ' + (error.response ? error.response.data.error : 'Network error'));
+            });
             this.setState({
                 actualProductList: this.state.actualProductList.filter(product => product._id !== id),
                 formVisibleOnPage: false,
                 selectedProduct: null
-            })
+            });
     }
     
     // Method to handle click event on a product
@@ -184,14 +158,20 @@ class ProductControl extends Component {
     }
     handleEditingProduct = (editedProduct) =>{
 
-        axios.put('http://localhost:5000/api/products/' + this.state.selectedProduct._id, editedProduct)
-            .then(res =>console.log(res.data))
-        
-        this.setState({
-            editProduct: false,
-            formVisibleOnPage: false
-        })
-        window.location = '/';
+        axios.put(`${process.env.REACT_APP_API_URL}/api/products/${this.state.selectedProduct._id}`, editedProduct)  
+            .then(res => {
+                console.log(res.data);
+                this.fetchProducts();  // NEW: Re-fetch after edit to update list
+                this.setState({
+                    editProduct: false,
+                    formVisibleOnPage: false
+                });
+                window.location = '/';
+            })
+            .catch(error => {  // NEW: Add error handling for PUT
+                console.error('Edit product error:', error);
+                alert('Failed to edit product: ' + (error.response ? error.response.data.error : 'Network error'));
+            });
     }
 
     render() {
@@ -202,7 +182,7 @@ class ProductControl extends Component {
             currentlyVisibleState = <EditProductForm  product ={this.state.selectedProduct} onEditProduct = {this.handleEditingProduct} />
             buttonText = "Back to Product Detail "
         }else if (this.state.selectedProduct != null){
-            currentlyVisibleState = < ProductDetail product = {this.state.selectedProduct} onBuyButtonClick ={this.handleAddButtonClick}  onDeleteProduct = {this.handleDeletingProduct} onEditProductClick = {this.handleEditProductClick}/>
+            currentlyVisibleState = < ProductDetail product = {this.state.selectedProduct} onBuyButtonClick ={this.handleAddButtonClick}  onDelete = {this.handleDeleteProduct} onDeleteProduct = {this.handleDeletingProduct} onEditProductClick = {this.handleEditProductClick}/>
             buttonText = "Back to product list"
         }else if (this.state.formVisibleOnPage){
             currentlyVisibleState = < NewProductForm onNewProductCreation = {this.handleAddingNewProduct} onPhotoUpload={this.handlePhotoUpload} />
@@ -226,4 +206,3 @@ class ProductControl extends Component {
 }
 
 export default ProductControl;
-
