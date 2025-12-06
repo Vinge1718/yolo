@@ -1,28 +1,42 @@
-# Use an official Node runtime as a parent image
+# === Build stage ===
 FROM node:14-slim AS build
 
-# Set the working directory in the container
+LABEL author="Paul Muchiri"
+
+ARG buildversion
+
+# Evironment variables
+ENV port=80
+ENV build=$buildversion
+ENV NODE_ENV=production
+
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
-# Install application dependencies
-RUN npm install
+RUN npm install --prod --omit=dev 
+# RUN npm ci --omit=dev
 
-# Copy the rest of the application code to the container
 COPY . .
 
-FROM alpine:3.16.7
+# Build 
+RUN npm run build
 
-WORKDIR /app
+# === Runtime stage ===
+FROM nginx:alpine
 
-RUN apk update && apk add npm
+RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=build /usr/src/app /app
+WORKDIR /usr/src/app
 
-# Expose the port the app runs on
-EXPOSE 3000
+# reduce image size by copying only necessary files
+# COPY --from=build /usr/src/app/package*.json ./
+# COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
-# Define the command to run your app
-CMD ["npm", "start"]
+EXPOSE $port
+
+RUN echo "Build version: $build"
+
+# Start Nginx server
+CMD ["nginx", "-g", "daemon off;"]
