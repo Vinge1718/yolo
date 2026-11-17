@@ -40,7 +40,7 @@ services:
     depends_on: 
       - app-ip-mongo
     environment:
-      - MONGODB_URL=mongodb://app-ip-mongo:27017/yolomy
+      - MONGO_URL=mongodb://app-ip-mongo:27017/yolomy
     networks:
       - yolo-net
 
