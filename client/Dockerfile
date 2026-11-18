@@ -19,6 +19,9 @@ FROM nginx:alpine
 
 COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
+# Configure Nginx as a reverse proxy for the backend API
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose the port the app runs on
 EXPOSE 80
 
