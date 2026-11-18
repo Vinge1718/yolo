@@ -1,4 +1,4 @@
-/* Product detail */
+ /* Product detail */
 
 body {
     font-family: 'open sans';
@@ -27,7 +27,7 @@ img {
     -webkit-box-flex: 1;
     -webkit-flex-grow: 1;
     -ms-flex-positive: 1;
-    /* flex-grow: 1; */
+    flex-grow: 1; 
     width: inherit;
 }
 .preview-thumbnail.nav-tabs {

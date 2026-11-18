@@ -1,4 +1,4 @@
 ---
-container_name: brian-yolo-backend
-network: app-net
+container_name: adih-yolo-backend
+network: yolo-net
 volume: app-mongo-data/app

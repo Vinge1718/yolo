@@ -1,0 +1,3 @@
+container_name: adih-yolo-client
+network: yolo-net
+volume: app-mongo-data/app

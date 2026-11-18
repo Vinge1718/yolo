@@ -1,7 +1,22 @@
 all:
-  hosts:
-    myserver:
-      ansible_host: 127.0.0.1
-      ansible_port: 2222
-      ansible_user: vagrant
-      ansible_private_key_file: .vagrant/machines/default/virtualbox/private_key
+  children:
+    frontend:
+      hosts:
+        frontend:
+          ansible_host: 192.168.56.11
+          ansible_user: vagrant
+          ansible_private_key_file: .vagrant/machines/frontend/virtualbox/private_key
+
+    backend:
+      hosts:
+        backend:
+          ansible_host: 192.168.56.12
+          ansible_user: vagrant
+          ansible_private_key_file: .vagrant/machines/backend/virtualbox/private_key
+
+    database:
+      hosts:
+        database:
+          ansible_host: 192.168.56.13
+          ansible_user: vagrant
+          ansible_private_key_file: .vagrant/machines/database/virtualbox/private_key

@@ -1,0 +1,14 @@
+- name: Pull frontend image from repository
+  docker_image:
+    name: adrianapindi/yolo-client:v1.3.0
+    source: pull
+
+- name: Run React Frontend container
+  docker_container:
+    name: adrianapindi-yolo-client
+    image: adrianapindi/yolo-client:v1.3.0
+    state: started
+    ports:
+      - "3000:3000"
+    networks:
+      - name: yolo-net

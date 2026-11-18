@@ -6,29 +6,32 @@
 
 #To launch this app without having to clone the entire repository,use the docker-compose.yaml file to run the app
 
-version: "3.8"
+
 
 services:
 
   #Builds the frontend Docker image and creates the frontend microservice
-  brian-yolo-client:
-    image: brianbwire/brian-yolo-client:v1.0.0
+  Adih-yolo-client:
+    image: adrianapindi-yolo-client:v1.2.0
     build: ./client
-    container_name: brian-yolo-client
+    container_name: Adih-yolo-client
     stdin_open: true
     tty: true
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on: 
-      - brian-yolo-backend
+      - Adih-yolo-backend
+    environment:
+      - REACT_APP_BACKEND_URL=http://Adih-yolo-backend:5000
+      - NODE_OPTIONS=--openssl-legacy-provider
     networks:
-      - app-net
+      - yolo-net
 
   #Builds the backend Docker image and creates the backend microservice
-  brian-yolo-backend:
-    image: brianbwire/brian-yolo-backend:v1.0.0
+  Adih-yolo-backend:
+    image: adrianapindi-yolo-backend:v1.0.0
     build: ./backend
-    container_name: brian-yolo-backend
+    container_name: Adih-yolo-backend
     stdin_open: true
     tty: true
     restart: always
@@ -36,8 +39,10 @@ services:
       - "5000:5000"
     depends_on: 
       - app-ip-mongo
+    environment:
+      - MONGO_URL=mongodb://app-ip-mongo:27017/yolomy
     networks:
-      - app-net
+      - yolo-net
 
   #Creates the database microservice
   app-ip-mongo:
@@ -46,7 +51,7 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - app-net
+      - yolo-net
     volumes:
       - type: volume
         source: app-mongo-data
@@ -54,8 +59,8 @@ services:
 
 #Creates the network infrastructure necessary for the containers to communicate with each other
 networks:
-  app-net:
-    name: app-net
+  yolo-net:
+    name: yolo-net
     driver: bridge
     attachable: true
     ipam:

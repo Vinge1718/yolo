@@ -1,16 +1,15 @@
 ---
-- name: Pull image from repository
-  docker_image:
-    name: brianbwire/brian-yolo-backend:v1.0.0
-    source: pull
-
-- name: Create Node.js Backend Container
+- name: Deploy Node.js Backend Container
   docker_container:
-    name: brian-yolo-backend
-    image: brianbwire/brian-yolo-backend:v1.0.0
+    name: adih-yolo-backend
+    image: adrianapindi/yolo-backend:v1.3.0
     networks:
-      - name: app-net
+      - name: yolo-net
     ports:
       - "5000:5000"
     command: "npm start"
+    env:
+      MONGODB_URI: "mongodb://192.168.56.13:27017/yolomy"
+    restart_policy: always   
+    state: started          
   become: yes

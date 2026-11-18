@@ -1,28 +1,29 @@
 # Use an official Node runtime as a parent image
-FROM node:14-slim AS build
+FROM node:18-alpine AS build
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
+#To avoid the OpenSSL error
+ENV NODE_OPTIONS=--openssl-legacy-provider
+
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
+RUN npm ci --only=production
 
-# Install application dependencies
-RUN npm install
-
-# Copy the rest of the application code to the container
+# Copy the rest of the application code to the container and build the app
 COPY . .
+RUN npm run build
 
-FROM alpine:3.16.7
+FROM nginx:alpine
 
-WORKDIR /app
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
-RUN apk update && apk add npm
-
-COPY --from=build /usr/src/app /app
+# Configure Nginx as a reverse proxy for the backend API
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose the port the app runs on
-EXPOSE 3000
+EXPOSE 80
 
 # Define the command to run your app
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
